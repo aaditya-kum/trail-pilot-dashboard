@@ -1,9 +1,5 @@
 @use "@styles/design-system" as *;
 
-// ============================================
-// SIDEBAR NAV ITEM
-// ============================================
-
 .navItem {
   appearance: none;
   border: 0;
@@ -14,22 +10,18 @@
   align-items: center;
   gap: 10px;
   padding: 10px;
-  width: 100%;
   border-radius: $radius-md;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s ease; // Faster, snappier
+  transition: all 0.2s ease;
   position: relative;
 
-  // Default state - no background
   background: transparent;
 
-  // Hover state - subtle background only (no color change)
   &:hover:not(.active):not(.disabled) {
     background: rgba(0, 0, 0, 0.04);
   }
 
-  // Active state - with background and blue text
   &.active {
     background: rgba(59, 130, 246, 0.1);
 
@@ -42,7 +34,6 @@
     }
   }
 
-  // DISABLED STATE - reduced opacity, no pointer events
   &.disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -54,13 +45,11 @@
     }
   }
 
-  // Focus state
   &:focus-visible {
     outline: 2px solid $color-primary;
     outline-offset: 2px;
   }
 
-  // COLLAPSED STATE - icon only, centered, no padding
   &.collapsed {
     justify-content: center;
     padding: 0;
@@ -79,14 +68,12 @@
       transition: all 0.2s ease;
     }
 
-    // Hover state for collapsed icons
     &:hover:not(.active):not(.disabled) {
       .icon {
         background: rgba(0, 0, 0, 0.04);
       }
     }
 
-    // Active state for collapsed icons
     &.active {
       .icon {
         background: rgba(59, 130, 246, 0.1);

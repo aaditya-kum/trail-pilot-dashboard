@@ -1,7 +1,6 @@
-﻿import "./App.css";
-import { Routes, Route } from "react-router-dom";
+﻿import { Routes, Route } from "react-router-dom";
 import { AppLayout } from "./layout/AppLayout";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./features/dashboard/Dashboard.jsx";
 
 function App() {
   return (
