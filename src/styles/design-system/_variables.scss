@@ -1,0 +1,167 @@
+// Font Family
+$font-family-primary:
+  "Sora",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif;
+
+// Font Sizes
+$font-xs: 0.75rem; // 12px
+$font-sm: 0.875rem; // 14px
+$font-base: 1rem; // 16px
+$font-lg: 1.125rem; // 18px
+$font-xl: 1.5rem; // 24px
+$font-2xl: 2rem; // 32px
+$font-3xl: 3rem; // 48px
+
+// Font Weights
+$weight-light: 300;
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
+$weight-extrabold: 800;
+
+// Line Heights
+$line-tight: 1;
+$line-normal: 1.5;
+$line-relaxed: 1.75;
+
+// --------------------------------------------
+// COLORS - PRIMARY PALETTE
+// --------------------------------------------
+
+// Brand Colors
+$color-primary: #2c4dd7;
+$color-primary-hover: #2440b8;
+$color-primary-active: #1d3599;
+
+// Accent Colors
+$color-accent: #7f9ee6;
+$color-accent-light: #b3c7f0;
+
+// AI Accent Colors (for AI features, badges, gradients)
+$color-ai-accent: #8b5cf6;
+$color-ai-accent-hover: #7c3aed;
+$color-ai-accent-dark: #6d28d9;
+$color-ai-secondary: #6366f1;
+
+// Background Colors
+$bg-soft: #f8fafc;
+$bg-white: #ffffff;
+$bg-card: #fafbfd;
+
+// Text Colors
+$text-primary: #1e293b;
+$text-secondary: #6b7280;
+$text-light: #9ca3af;
+
+// Gray Scale
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+
+// Border Colors
+$border: #dfe4ec;
+$border-light: #e5e7eb;
+$border-hover: #c5cad4;
+
+// State Colors
+$success: #10b981;
+$error: #ef4444;
+$warning: #f59e0b;
+$info: #3b82f6;
+
+// Priority Colors (for task management, etc.)
+$priority-critical: #ffbebd; // Red
+$priority-high: #c9f3e0; // Green
+$priority-medium: #ffe2bd; // Orange
+$priority-low: #cdc5f7; // Purple
+
+// Text Colors - Job Search
+$color-accent-grey: #4a4f59;
+$color-dark-blue-text: #111827;
+$color-light-grey-text: #7d7c7c;
+
+// Border Colors - Job Search
+$color-border-primary: #c1c9d7;
+$color-border-light: #e0e4ec;
+$color-border-lighter: #e2e6ef;
+
+// Surface/Background Colors - Job Search
+$color-surface-light: #f5f7fb;
+$color-surface-lighter: #e3e7ef;
+$color-bg-grey: #eff2f5;
+
+// Accent Colors - Job Search
+$color-muted-accent: #dee3ef;
+$color-deep-muted-accent: #bdcbe5;
+$color-primary-gradient-end: #5a6edb;
+
+// Basic Colors
+$color-black: #000000;
+$color-white: #ffffff;
+
+// --------------------------------------------
+// SPACING SYSTEM
+// --------------------------------------------
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+$spacing-2xl: 3rem; // 48px
+$spacing-3xl: 4rem; // 64px
+
+// --------------------------------------------
+// BORDER RADIUS
+// --------------------------------------------
+$radius-sm: 6px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 24px;
+$radius-full: 9999px;
+
+// --------------------------------------------
+// SHADOWS
+// --------------------------------------------
+$shadow-sm: 0px 2px 4px rgba(0, 0, 0, 0.04);
+$shadow-md: 0px 8px 16px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0px 16px 32px rgba(0, 0, 0, 0.08);
+$shadow-xl: 0px 24px 48px rgba(0, 0, 0, 0.1);
+
+// --------------------------------------------
+// TRANSITIONS
+// --------------------------------------------
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+$transition-slow: 0.35s ease;
+
+// --------------------------------------------
+// Z-INDEX SCALE
+// --------------------------------------------
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
+$z-sidebar: 1200;
+
+// --------------------------------------------
+// BREAKPOINTS
+// --------------------------------------------
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;

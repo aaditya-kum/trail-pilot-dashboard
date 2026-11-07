@@ -1,0 +1,256 @@
+@use "@styles/design-system" as *;
+
+// ============================================
+// SIDEBAR - MAIN CONTAINER
+// ============================================
+
+.sidebar {
+  position: fixed;
+  top: 7px;
+  left: 7px;
+  height: calc(100vh - 17px); // 10px gap from top and bottom
+  background: $bg-white;
+  // border-right: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  z-index: $z-sidebar; // Above MUI modals (1300) to stay accessible
+  overflow: hidden;
+  border-radius: 12px; // Optional: adds rounded corners for better aesthetics
+
+  // EXACT Figma widths
+  width: 250px; // Expanded (246px content + 20px padding each side)
+  // width: 286px; // Expanded (246px content + 20px padding each side)
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--rb-shadow-md);
+  // Collapsed state
+  &.collapsed {
+    width: 68px; // EXACT Figma collapsed width
+    // box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+  }
+
+  // Shadow when expanded
+  &:not(.collapsed) {
+    // box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+  }
+}
+
+// ============================================
+// SIDEBAR HEADER
+// ============================================
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  padding: 20px 20px 16px 20px;
+
+  min-height: auto;
+  flex-shrink: 0;
+  transition: padding 0.2s ease;
+
+  // Subtle accent line under logo (very subtle)
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 1px;
+  }
+
+  // Collapsed state - center logo
+  &.collapsed {
+    justify-content: center;
+    padding: 20px 0 16px 0;
+
+    &::after {
+      left: 12px;
+      right: 12px;
+    }
+  }
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  // IMPORTANT: Remove any padding/margin that might offset it
+  padding: 0;
+  margin: 0;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  // In collapsed state, center the logo
+  .collapsed & {
+    justify-content: center;
+    flex: none;
+  }
+}
+
+.logoIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // EXPANDED state: 24x30 logo
+  width: 24px;
+  height: 30px;
+
+  // In collapsed state: 35x35 logo (but we'll use same for consistency)
+  .collapsed & {
+    width: 35px;
+    height: 35px; // Let aspect ratio handle height
+  }
+
+  // Ensure SVG fills container properly
+  svg {
+    width: 100%;
+    height: auto; // Maintain aspect ratio
+  }
+}
+
+.logoText {
+  font-family: $font-family-primary;
+  font-size: 18px; // Reduced from 24px
+  font-weight: $weight-bold; // 700
+  color: #001524; // EXACT Figma color
+  white-space: nowrap;
+  line-height: normal;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Hide when collapsed
+  .collapsed & {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+  }
+}
+
+.collapseButton {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  // CRITICAL: Hide in collapsed state (click logo instead)
+  .collapsed & {
+    display: none;
+  }
+
+}
+
+// ============================================
+// SIDEBAR CONTENT (Scrollable)
+// ============================================
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  // Custom scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: #c5cad4 $bg-soft;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-soft;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c5cad4;
+    border-radius: $radius-full;
+  }
+
+  // Padding
+  padding: 0 20px 20px 20px;
+  transition: padding 0.2s ease;
+
+  // In collapsed state
+  .collapsed & {
+    padding: 0 16px 16px 16px;
+  }
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; // Comfortable spacing between items
+  width: 100%;
+
+  // Gap from header to first nav item
+  margin-top: 24px;
+
+  // Collapsed state
+  .collapsed & {
+    margin-top: 24px;
+    gap: 12px;
+  }
+}
+
+.footerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; // Comfortable spacing between items
+  margin-top: auto;
+  padding-top: 16px;
+  width: 100%;
+  position: relative;
+
+  // Subtle divider above footer
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  // Collapsed state
+  .collapsed & {
+    gap: 12px;
+  }
+}
+

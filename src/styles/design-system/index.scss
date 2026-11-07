@@ -1,0 +1,86 @@
+@forward "./variables";
+@use "./variables" as *;
+
+// :root {
+//   // Primary Colors
+//   --rb-primary: #2c4dd7;
+//   --rb-primary-light: #7f9ee6;
+//   --rb-primary-dark: #2440b8;
+//   --rb-primary-rgb: 44, 77, 215;
+
+//   // Secondary & Accent
+//   --rb-secondary: #64748b;
+//   --rb-accent: #7f9ee6;
+
+//   // Grays
+//   --rb-gray-50: #f9fafb;
+//   --rb-gray-100: #f3f4f6;
+//   --rb-gray-200: #e5e7eb;
+//   --rb-gray-300: #d1d5db;
+//   --rb-gray-400: #9ca3af;
+//   --rb-gray-500: #6b7280;
+//   --rb-gray-600: #4b5563;
+//   --rb-gray-700: #374151;
+//   --rb-gray-800: #1f2937;
+//   --rb-gray-900: #111827;
+
+//   // Semantic Colors
+//   --rb-success: #10b981;
+//   --rb-warning: #f59e0b;
+//   --rb-error: #ef4444;
+//   --rb-info: #3b82f6;
+
+//   // Text Colors
+//   --rb-text-primary: #1e293b;
+//   --rb-text-secondary: #6b7280;
+//   --rb-text-caption: #374151;
+//   --rb-text-muted: #9ca3af;
+//   --rb-text-light: #9ca3af;
+//   --rb-text-inverse: #ffffff;
+//   --rb-text-sm: 14px;
+
+//   // Background Colors
+//   --rb-background: #ffffff;
+//   --rb-surface: #f5f7fb;
+//   --rb-bg-soft: #f5f7fb;
+//   --rb-bg-white: #ffffff;
+//   --rb-bg-light: #f9fafb;
+//   --rb-bg-card: #fafbfd;
+//   --rb-filled: #ffffff;
+
+//   // Border Colors
+//   --rb-border: #e0e4eb;
+//   --rb-border-light: #e5e7eb;
+//   --rb-border-hover: #c1c9d7;
+//   --rb-border-focus: #2c4dd7;
+
+//   // Spacing
+//   --rb-space-xs: 4px;
+//   --rb-space-sm: 8px;
+//   --rb-space-md: 12px;
+//   --rb-space-base: 16px;
+//   --rb-space-lg: 24px;
+//   --rb-space-xl: 32px;
+
+//   // Border Radius
+//   --rb-radius-sm: 6px;
+//   --rb-radius-md: 12px;
+//   --rb-radius-lg: 16px;
+//   --rb-radius-xl: 24px;
+//   --rb-radius-full: 9999px;
+
+//   // Shadows
+//   --rb-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+//   --rb-shadow-md:
+//     0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+//   --rb-shadow-lg:
+//     0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+//   // Transitions
+//   --rb-transition-fast: 150ms ease;
+//   --rb-transition-base: 250ms ease;
+//   --rb-transition-slow: 350ms ease;
+
+//   // Typography
+//   --rb-font-semibold: 600;
+// }

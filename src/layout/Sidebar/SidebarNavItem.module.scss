@@ -1,0 +1,133 @@
+@use "@styles/design-system" as *;
+
+// ============================================
+// SIDEBAR NAV ITEM
+// ============================================
+
+.navItem {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+  border-radius: $radius-md;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease; // Faster, snappier
+  position: relative;
+
+  // Default state - no background
+  background: transparent;
+
+  // Hover state - subtle background only (no color change)
+  &:hover:not(.active):not(.disabled) {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  // Active state - with background and blue text
+  &.active {
+    background: rgba(59, 130, 246, 0.1);
+
+    .label {
+      color: #3b82f6;
+    }
+
+    .icon {
+      color: #3b82f6;
+    }
+  }
+
+  // DISABLED STATE - reduced opacity, no pointer events
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+
+    .label,
+    .icon {
+      color: $text-secondary;
+    }
+  }
+
+  // Focus state
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  // COLLAPSED STATE - icon only, centered, no padding
+  &.collapsed {
+    justify-content: center;
+    padding: 0;
+    gap: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    // Hover state for collapsed icons
+    &:hover:not(.active):not(.disabled) {
+      .icon {
+        background: rgba(0, 0, 0, 0.04);
+      }
+    }
+
+    // Active state for collapsed icons
+    &.active {
+      .icon {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+      }
+    }
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #1f2937; // Darker gray (gray-800)
+  transition: all 0.2s ease;
+
+  .active & {
+    color: #3b82f6;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.label {
+  font-family: $font-family-primary;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.01em; // Tighter for modern feel
+  color: #1f2937; // Darker gray (gray-800)
+  white-space: nowrap;
+  transition: all 0.2s ease;
+
+  .active & {
+    color: #3b82f6;
+    font-weight: 500;
+  }
+}

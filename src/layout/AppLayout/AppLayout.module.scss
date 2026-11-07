@@ -1,0 +1,55 @@
+@use "@styles/design-system" as *;
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: $bg-soft;
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+
+  // EXACT Figma margins + 10px gap
+  margin-left: 265px; // Expanded sidebar width (250px) + 10px left gap
+  // margin-left: 286px; // Expanded sidebar width
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Collapsed sidebar
+  &.sidebarCollapsed {
+    margin-left: 83px; // EXACT Figma collapsed width (68px) + 10px left gap
+  }
+}
+
+.contentWrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.contentLoader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 60vh;
+}
+
+.contentSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid $border-light;
+  border-top-color: $color-primary;
+  border-radius: 50%;
+  animation: contentSpin 0.7s linear infinite;
+}
+
+@keyframes contentSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
