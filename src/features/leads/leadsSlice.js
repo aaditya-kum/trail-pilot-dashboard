@@ -57,7 +57,11 @@ const leadsSlice = createSlice({
     })
       .addCase(fetchLeads.fulfilled, (s, a) => {
         s.loading = false;
-        s.items = a.payload;
+        s.items = Array.isArray(a.payload)
+          ? a.payload
+          : Array.isArray(a.payload?.data)
+            ? a.payload.data
+            : [];
       })
       .addCase(fetchLeads.rejected, (s, a) => {
         s.loading = false;

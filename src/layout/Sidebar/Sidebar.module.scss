@@ -10,7 +10,8 @@
   left: 7px;
   height: calc(100vh - 17px); // 10px gap from top and bottom
   background: $bg-white;
-  // border-right: 1px solid $border;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+
   display: flex;
   flex-direction: column;
   z-index: $z-sidebar; // Above MUI modals (1300) to stay accessible
@@ -169,7 +170,6 @@
   .collapsed & {
     display: none;
   }
-
 }
 
 // ============================================
@@ -253,4 +253,3 @@
     gap: 12px;
   }
 }
-
