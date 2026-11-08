@@ -31,6 +31,23 @@
   overflow: hidden;
 }
 
+.mobileContent {
+  min-height: 100vh;
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .contentWrapper {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
+
 .contentLoader {
   display: flex;
   align-items: center;

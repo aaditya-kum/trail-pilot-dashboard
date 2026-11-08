@@ -44,7 +44,7 @@ const Dashboard = () => {
     {
       label: "Leads",
       value: leads.length,
-      detail: "From API",
+      detail: "Today",
       tone: "blue",
     },
     { label: "Tasks", value: "18", detail: "6 completed", tone: "purple" },

@@ -12,6 +12,7 @@ export const SidebarNavItem = ({
   clickedPath = null,
 }) => {
   const location = useLocation();
+  const Icon = icon;
 
   const routerActive =
     path === "/"
@@ -71,7 +72,9 @@ export const SidebarNavItem = ({
       aria-disabled={disabled}
     >
       <div className={styles.icon}>
-        <span aria-hidden="true">{icon}</span>
+        <span aria-hidden="true">
+          {typeof Icon === "string" ? Icon : Icon ? <Icon /> : null}
+        </span>
       </div>
 
       {/* Only render label and badge if NOT collapsed */}
