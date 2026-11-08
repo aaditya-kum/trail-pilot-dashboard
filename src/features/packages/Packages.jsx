@@ -257,7 +257,7 @@ const Packages = () => {
           </Typography>
           <Stack
             direction={{ xs: "column", md: "row" }}
-            spacing={1}
+            spacing={{ xs: 2, md: 1.5 }}
             sx={{ width: { xs: "100%", sm: "auto" } }}
           >
             <SearchBar
