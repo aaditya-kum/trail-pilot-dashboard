@@ -7,7 +7,7 @@ import {
   TableRow,
   Box,
 } from "@mui/material";
-import BouncingLoader from "./BouncingLoader/BouncingLoader.jsx";
+import TableSkeleton from "./TableSkeleton/TableSkeleton.jsx";
 
 const DataTable = ({
   columns,
@@ -26,7 +26,11 @@ const DataTable = ({
         borderRadius: 2,
       }}
     >
-      <Table sx={{ minWidth: 850 }}>
+      <Table
+      // sx={{
+      //   minWidth: { xs: 550, sm: 850 },
+      // }}
+      >
         <TableHead
           sx={{
             "& th:first-of-type": { borderTopLeftRadius: 8 },
@@ -57,11 +61,7 @@ const DataTable = ({
           }}
         >
           {loading && (
-            <TableRow>
-              <TableCell colSpan={columns.length} sx={{ p: 0 }}>
-                <BouncingLoader minHeight="180px" size="small" />
-              </TableCell>
-            </TableRow>
+            <TableSkeleton columns={columns.length} rows={5} />
           )}
           {!loading && error && (
             <TableRow>

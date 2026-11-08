@@ -5,4 +5,5 @@ export { default as BouncingLoader } from "./BouncingLoader/BouncingLoader.jsx";
 export { default as LeadDialog } from "./LeadDialog.jsx";
 export { default as DeleteConfirmationDialog } from "./DeleteConfirmationDialog.jsx";
 export { default as FormSelect } from "./FormSelect.jsx";
+export { default as TableSkeleton } from "./TableSkeleton/TableSkeleton.jsx";
 export { default as PackageDialog } from "./PackageDialog.jsx";

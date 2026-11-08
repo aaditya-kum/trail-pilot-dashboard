@@ -16,9 +16,39 @@ const Dashboard = () => {
   }, [dispatch]);
 
   const stats = [
-    { label: "Leads", value: leads.length, detail: "Today", tone: "blue" },
-    { label: "Tasks", value: "18", detail: "6 completed", tone: "purple" },
-    { label: "Team members", value: "12", detail: "2 online", tone: "green" },
+    { label: "Total Leads", value: leads.length, detail: "All leads", tone: "blue" },
+    {
+      label: "Active Bookings",
+      value: leads.filter((lead) => lead.status === "Converted").length,
+      detail: "Converted leads",
+      tone: "purple",
+    },
+    {
+      label: "Total Revenue",
+      value: new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0,
+      }).format(
+        leads
+          .filter((lead) => lead.status === "Converted")
+          .reduce((total, lead) => total + (Number(lead.budget) || 0), 0),
+      ),
+      detail: "From converted leads",
+      tone: "green",
+    },
+    {
+      label: "Upcoming Trips",
+      value: leads.filter((lead) => {
+        if (lead.status !== "Converted" || !lead.travelDate) return false;
+        const travelDate = new Date(`${lead.travelDate}T00:00:00`);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return travelDate > today;
+      }).length,
+      detail: "Trips after today",
+      tone: "blue",
+    },
   ];
 
   const columns = [
