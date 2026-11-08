@@ -49,8 +49,8 @@ const leadValidationSchema = Yup.object({
 
 const LEAD_STATUS_OPTIONS = [
   "New",
+  "Interested",
   "Contacted",
-  "Qualified",
   "Converted",
   "Lost",
 ];

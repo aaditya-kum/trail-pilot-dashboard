@@ -98,9 +98,13 @@ const Leads = () => {
           color={
             value === "Converted"
               ? "success"
-              : value === "Lost"
-                ? "error"
-                : "primary"
+              : value === "Interested"
+                ? "info"
+                : value === "Contacted"
+                  ? "warning"
+                  : value === "Lost"
+                    ? "error"
+                    : "default"
           }
           variant="outlined"
         />
