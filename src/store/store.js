@@ -8,5 +8,3 @@ export const store = configureStore({
     packages: packagesReducer,
   },
 });
-
-export const dispatch = store.dispatch;

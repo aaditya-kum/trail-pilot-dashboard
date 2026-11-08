@@ -11,6 +11,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "./FormInput.jsx";
 import FormSelect from "./FormSelect.jsx";
+import { LEAD_STATUS_OPTIONS } from "../utils/leadStatus.js";
 
 const EMPTY_LEAD = {
   name: "",
@@ -47,14 +48,6 @@ const leadValidationSchema = Yup.object({
   status: Yup.string().trim().required("Status is required"),
 });
 
-const LEAD_STATUS_OPTIONS = [
-  "New",
-  "Interested",
-  "Contacted",
-  "Converted",
-  "Lost",
-];
-
 const LeadDialog = ({
   open,
   onClose,
@@ -67,7 +60,7 @@ const LeadDialog = ({
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{title}</DialogTitle>
       <Formik
-        key={`${title}-${open}-${lead?.id ?? lead?._id ?? ""}`}
+        key={`${title}-${open}-${lead?.id || ""}`}
         enableReinitialize
         initialValues={lead ? { ...EMPTY_LEAD, ...lead } : EMPTY_LEAD}
         validationSchema={leadValidationSchema}

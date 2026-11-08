@@ -49,7 +49,7 @@ const PackageDialog = ({
   <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
     <DialogTitle>{title}</DialogTitle>
     <Formik
-      key={`${title}-${open}-${travelPackage?.id ?? travelPackage?._id ?? ""}`}
+      key={`${title}-${open}-${travelPackage?.id || ""}`}
       enableReinitialize
       initialValues={travelPackage ? { ...EMPTY_PACKAGE, ...travelPackage } : EMPTY_PACKAGE}
       validationSchema={packageValidationSchema}

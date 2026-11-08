@@ -29,6 +29,7 @@ import {
   fetchPackages,
   updatePackage,
 } from "./packagesSlice.js";
+import { formatINR } from "../../utils/formatCurrency.js";
 import "../dashboard/dashboard.scss";
 
 const Packages = () => {
@@ -107,11 +108,7 @@ const Packages = () => {
       label: "Price",
       render: (value) =>
         typeof value === "number"
-          ? new Intl.NumberFormat("en-IN", {
-              style: "currency",
-              currency: "INR",
-              maximumFractionDigits: 0,
-            }).format(value)
+          ? formatINR(value)
           : value || "—",
     },
     {
@@ -195,7 +192,7 @@ const Packages = () => {
   };
 
   const handleDelete = () => {
-    dispatch(deletePackage(deletingPackage.id ?? deletingPackage._id));
+    dispatch(deletePackage(deletingPackage.id));
     setDeletingPackage(null);
   };
 

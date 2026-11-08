@@ -6,6 +6,7 @@ import { StatCard } from "../../components";
 import { fetchLeads } from "../leads/leadsSlice.js";
 import BookingTrendsChart from "./components/BookingTrendsChart.jsx";
 import RecentLeadsList from "./components/RecentLeadsList.jsx";
+import { formatINR } from "../../utils/formatCurrency.js";
 import "./dashboard.scss";
 
 const Dashboard = () => {
@@ -32,11 +33,7 @@ const Dashboard = () => {
     },
     {
       label: "Total Revenue",
-      value: new Intl.NumberFormat("en-IN", {
-        style: "currency",
-        currency: "INR",
-        maximumFractionDigits: 0,
-      }).format(
+      value: formatINR(
         leads
           .filter((lead) => lead.status === "Converted")
           .reduce((total, lead) => total + (Number(lead.budget) || 0), 0),

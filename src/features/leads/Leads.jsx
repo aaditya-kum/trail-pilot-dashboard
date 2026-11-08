@@ -19,6 +19,8 @@ import {
   Pagination,
 } from "../../components";
 import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
+import { formatINR } from "../../utils/formatCurrency.js";
+import { LEAD_STATUS_COLORS } from "../../utils/leadStatus.js";
 import "../dashboard/dashboard.scss";
 
 const Leads = () => {
@@ -74,7 +76,7 @@ const Leads = () => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteLead(deletingLead.id ?? deletingLead._id));
+    dispatch(deleteLead(deletingLead.id));
     setDeletingLead(null);
   };
 
@@ -94,11 +96,7 @@ const Leads = () => {
       label: "Budget",
       render: (value) =>
         typeof value === "number"
-          ? new Intl.NumberFormat("en-IN", {
-              style: "currency",
-              currency: "INR",
-              maximumFractionDigits: 0,
-            }).format(value)
+          ? formatINR(value)
           : value || "—",
     },
     {
@@ -114,17 +112,7 @@ const Leads = () => {
         <Chip
           label={value || "New"}
           size="small"
-          color={
-            value === "Converted"
-              ? "success"
-              : value === "Interested"
-                ? "info"
-                : value === "Contacted"
-                  ? "warning"
-                  : value === "Lost"
-                    ? "error"
-                    : "default"
-          }
+          color={LEAD_STATUS_COLORS[value || "New"]?.mui || "default"}
           variant="outlined"
         />
       ),

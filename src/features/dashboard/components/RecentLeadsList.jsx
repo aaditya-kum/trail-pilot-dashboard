@@ -8,14 +8,7 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-
-const getStatusColor = (status) => {
-  if (status === "Converted") return "#16a34a";
-  if (status === "Interested") return "#0284c7";
-  if (status === "Contacted") return "#d97706";
-  if (status === "Lost") return "#dc2626";
-  return "#64748b";
-};
+import { LEAD_STATUS_COLORS } from "../../../utils/leadStatus.js";
 
 const formatTravelDate = (travelDate) => {
   if (!travelDate) return null;
@@ -105,11 +98,12 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
           !error &&
           visibleLeads.map((lead, index) => {
             const status = lead.status || "New";
-            const statusColor = getStatusColor(status);
+            const statusColor =
+              LEAD_STATUS_COLORS[status]?.hex || LEAD_STATUS_COLORS.New.hex;
             const travelDate = formatTravelDate(lead.travelDate);
 
             return (
-              <Box key={lead.id ?? lead._id ?? index}>
+              <Box key={lead.id || index}>
                 <Box
                   sx={{
                     display: "flex",
