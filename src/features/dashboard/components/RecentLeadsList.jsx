@@ -2,13 +2,12 @@ import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
-  Chip,
   Divider,
   Paper,
   Skeleton,
   Typography,
 } from "@mui/material";
-import { LEAD_STATUS_COLORS } from "../../../utils/leadStatus.js";
+import { StatusBadge } from "../../../components";
 
 const formatTravelDate = (travelDate) => {
   if (!travelDate) return null;
@@ -98,8 +97,6 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
           !error &&
           visibleLeads.map((lead, index) => {
             const status = lead.status || "New";
-            const statusColor =
-              LEAD_STATUS_COLORS[status]?.hex || LEAD_STATUS_COLORS.New.hex;
             const travelDate = formatTravelDate(lead.travelDate);
 
             return (
@@ -140,8 +137,8 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
                         .join(" · ")}
                     </Typography>
                   </Box>
-                  <Chip
-                    label={status}
+                  <StatusBadge
+                    status={status}
                     size="small"
                     variant="outlined"
                     sx={{
@@ -149,9 +146,6 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
                       height: 26,
                       flexShrink: 0,
                       borderRadius: "999px",
-                      borderColor:
-                        statusColor === "#64748b" ? "divider" : statusColor,
-                      color: statusColor,
                       bgcolor: "background.paper",
                       "& .MuiChip-label": {
                         px: 1,

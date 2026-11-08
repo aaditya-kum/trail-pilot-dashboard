@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Button,
-  Chip,
   IconButton,
   Paper,
   Stack,
@@ -14,17 +13,15 @@ import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import {
   DataTable,
   DeleteConfirmationDialog,
-  FormInput,
   FormSelect,
   LeadDialog,
   Pagination,
+  SearchBar,
+  StatusBadge,
 } from "../../components";
 import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
-import {
-  LEAD_STATUS_COLORS,
-  LEAD_STATUS_OPTIONS,
-} from "../../utils/leadStatus.js";
+import { LEAD_STATUS_OPTIONS } from "../../utils/leadStatus.js";
 import usePagination from "../../hooks/usePagination.js";
 import { useNotification } from "../../providers/NotificationProvider.jsx";
 import "../dashboard/dashboard.scss";
@@ -149,14 +146,7 @@ const Leads = () => {
     {
       id: "status",
       label: "Status",
-      render: (value) => (
-        <Chip
-          label={value || "New"}
-          size="small"
-          color={LEAD_STATUS_COLORS[value || "New"]?.mui || "default"}
-          variant="outlined"
-        />
-      ),
+      render: (value) => <StatusBadge status={value} />,
     },
     {
       id: "actions",
@@ -218,7 +208,7 @@ const Leads = () => {
             spacing={1}
             sx={{ width: { xs: "100%", sm: "auto" } }}
           >
-            <FormInput
+            <SearchBar
               name="lead-search"
               label="Search leads"
               value={search}

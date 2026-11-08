@@ -9,3 +9,5 @@ export { default as TableSkeleton } from "./TableSkeleton/TableSkeleton.jsx";
 export { default as PackageDialog } from "./PackageDialog.jsx";
 export { default as Pagination } from "./Pagination.jsx";
 export { default as LoadingButton } from "./LoadingButton.jsx";
+export { default as SearchBar } from "./SearchBar.jsx";
+export { default as StatusBadge } from "./StatusBadge.jsx";

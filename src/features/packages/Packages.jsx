@@ -19,10 +19,10 @@ import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import {
   DataTable,
   DeleteConfirmationDialog,
-  FormInput,
   FormSelect,
   PackageDialog,
   Pagination,
+  SearchBar,
 } from "../../components";
 import {
   addPackage,
@@ -262,7 +262,7 @@ const Packages = () => {
             spacing={1}
             sx={{ width: { xs: "100%", sm: "auto" } }}
           >
-            <FormInput
+            <SearchBar
               name="package-search"
               label="Search packages"
               value={search}
