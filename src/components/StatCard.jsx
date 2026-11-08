@@ -24,7 +24,12 @@ const StatCard = ({ label, value, detail, tone = "blue" }) => (
         <Typography variant="body2" color="text.secondary">
           {label}
         </Typography>
-        <Typography variant="h5" component="strong" fontWeight={700}>
+        <Typography
+          variant="h5"
+          component="strong"
+          fontWeight={700}
+          sx={{ marginRight: 1 }}
+        >
           {value}
         </Typography>
         <Typography variant="caption" color="text.disabled" display="block">

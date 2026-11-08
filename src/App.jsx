@@ -1,14 +1,16 @@
 ﻿import { Routes, Route } from "react-router-dom";
 import { AppLayout } from "./layout/AppLayout";
 import Dashboard from "./features/dashboard/Dashboard.jsx";
+import NotFound from "./features/not-found/NotFound.jsx";
 
 function App() {
   return (
-    <AppLayout>
-      <Routes>
+    <Routes>
+      <Route element={<AppLayout />}>
         <Route path="/" element={<Dashboard />} />
-      </Routes>
-    </AppLayout>
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

@@ -95,8 +95,8 @@ const Dashboard = () => {
     <div className="dashboard-page">
       <header className="dashboard-header">
         <div>
-          <p className="dashboard-eyebrow">Overview</p>
-          <h1>Dashboard</h1>
+          <p className="dashboard-eyebrow">Travel operations workspace</p>
+          <h1>Welcome Back Aditya!</h1>
         </div>
         <Button variant="contained" onClick={() => navigate("/projects")}>
           View projects
