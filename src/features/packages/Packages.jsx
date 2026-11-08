@@ -117,9 +117,7 @@ const Packages = () => {
       id: "price",
       label: "Price",
       render: (value) =>
-        typeof value === "number"
-          ? formatINR(value)
-          : value || "—",
+        value ? formatINR(value) : "—",
     },
     {
       id: "duration",

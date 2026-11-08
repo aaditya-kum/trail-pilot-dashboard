@@ -136,7 +136,7 @@ const Leads = () => {
       id: "budget",
       label: "Budget",
       render: (value) =>
-        typeof value === "number" ? formatINR(value) : value || "—",
+        value ? formatINR(value) : "—",
     },
     {
       id: "travelDate",
@@ -232,7 +232,11 @@ const Leads = () => {
           rows={paginatedLeads}
           loading={loading}
           error={error}
-          emptyMessage={search ? "No matching leads found" : "No leads found"}
+          emptyMessage={
+            search || statusFilter !== "All"
+              ? "No matching leads found"
+              : "No leads found"
+          }
         />
         <Pagination
           page={currentPage}
