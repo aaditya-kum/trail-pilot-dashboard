@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Grid,
   Stack,
   Typography,
@@ -12,7 +11,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { FiCopy } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, FormInput, FormSelect, StatusBadge } from "../../components";
+import {
+  Button,
+  DialogHeader,
+  FormInput,
+  FormSelect,
+  StatusBadge,
+} from "../../components";
 import { useNotification } from "../../providers/NotificationProvider.jsx";
 import { LEAD_STATUS_OPTIONS } from "../../utils/leadStatus.js";
 import { CHANNEL_OPTIONS, TONE_OPTIONS } from "./assistantService.js";
@@ -104,8 +109,27 @@ const AssistantDialog = ({ open, onClose, lead = null }) => {
       onClose={isLoading ? undefined : handleClose}
       fullWidth
       maxWidth="sm"
+      slotProps={{
+        paper: {
+          sx: {
+            maxHeight: "calc(100dvh - 48px)",
+            overflow: "hidden",
+            borderRadius: 3,
+          },
+        },
+      }}
+      sx={{
+        "& .MuiDialog-paper": {
+          display: "flex",
+          flexDirection: "column",
+        },
+      }}
     >
-      <DialogTitle>Follow-up assistant</DialogTitle>
+      <DialogHeader
+        title="Follow-up assistant"
+        onClose={handleClose}
+        disabled={isLoading}
+      />
       <Formik
         key={`${open}-${lead?.id || "new"}`}
         initialValues={getInitialValues(lead)}
@@ -134,8 +158,17 @@ const AssistantDialog = ({ open, onClose, lead = null }) => {
           });
 
           return (
-            <form onSubmit={handleSubmit} noValidate>
-              <DialogContent>
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: 0,
+                flex: 1,
+              }}
+            >
+              <DialogContent sx={{ flex: 1, overflowY: "auto" }}>
                 <Stack spacing={3}>
                   <Grid container spacing={3}>
                     <Grid size={{ xs: 12, sm: 6 }}>
@@ -230,17 +263,17 @@ const AssistantDialog = ({ open, onClose, lead = null }) => {
                   )}
                 </Stack>
               </DialogContent>
-              <DialogActions sx={{ px: 3, py: 2 }}>
-                <Button
+              <DialogActions sx={{ px: 3, py: 2, flexShrink: 0 }}>
+                {/* <Button
                   variant="secondary"
                   onClick={handleClose}
                   disabled={isLoading}
                 >
                   Close
-                </Button>
+                </Button> */}
                 <Button
                   type="submit"
-                  variant={hasResult ? "secondary" : "contained"}
+                  variant={hasResult ? "outlined" : "contained"}
                   loading={isLoading}
                   loadingText="Generating..."
                 >
@@ -252,6 +285,11 @@ const AssistantDialog = ({ open, onClose, lead = null }) => {
                     startIcon={<FiCopy />}
                     onClick={handleCopy}
                     disabled={isLoading || !message.trim()}
+                    sx={{
+                      "& .MuiButton-startIcon": {
+                        display: { xs: "none", sm: "inherit" },
+                      },
+                    }}
                   >
                     Copy message
                   </Button>

@@ -2,10 +2,10 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Typography,
 } from "@mui/material";
 import Button from "./Button.jsx";
+import DialogHeader from "./DialogHeader.jsx";
 
 const DeleteConfirmationDialog = ({
   open,
@@ -21,9 +21,18 @@ const DeleteConfirmationDialog = ({
     onClose={loading ? undefined : onClose}
     fullWidth
     maxWidth="xs"
+    slotProps={{
+      paper: {
+        sx: {
+          maxHeight: "calc(100dvh - 48px)",
+          overflow: "hidden",
+          borderRadius: 3,
+        },
+      },
+    }}
   >
-    <DialogTitle>{title}</DialogTitle>
-    <DialogContent>
+    <DialogHeader title={title} onClose={onClose} disabled={loading} />
+    <DialogContent sx={{ overflowY: "auto" }}>
       <Typography>
         {itemName
           ? `Are you sure you want to delete ${itemName}?`

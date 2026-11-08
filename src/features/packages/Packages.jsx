@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   IconButton,
   Paper,
   Stack,
@@ -19,6 +18,7 @@ import {
   Button,
   DataTable,
   DeleteConfirmationDialog,
+  DialogHeader,
   FormSelect,
   PackageDialog,
   Pagination,
@@ -332,10 +332,19 @@ const Packages = () => {
         onClose={() => setViewingDescription(null)}
         fullWidth
         maxWidth="sm"
+        slotProps={{
+          paper: {
+            sx: {
+              borderRadius: 3,
+              maxHeight: "calc(100dvh - 48px)",
+            },
+          },
+        }}
       >
-        <DialogTitle>
-          {viewingDescription?.name || "Package description"}
-        </DialogTitle>
+        <DialogHeader
+          title={viewingDescription?.name || "Package description"}
+          onClose={() => setViewingDescription(null)}
+        />
         <DialogContent>
           <Typography sx={{ whiteSpace: "pre-wrap" }}>
             {viewingDescription?.description || "—"}

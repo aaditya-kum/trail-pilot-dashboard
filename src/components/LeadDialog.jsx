@@ -2,7 +2,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Stack,
   Grid,
 } from "@mui/material";
@@ -11,6 +10,7 @@ import * as Yup from "yup";
 import FormInput from "./FormInput.jsx";
 import FormSelect from "./FormSelect.jsx";
 import Button from "./Button.jsx";
+import DialogHeader from "./DialogHeader.jsx";
 import { LEAD_STATUS_OPTIONS } from "../utils/leadStatus.js";
 
 const EMPTY_LEAD = {
@@ -63,8 +63,23 @@ const LeadDialog = ({
       onClose={loading ? undefined : onClose}
       fullWidth
       maxWidth="sm"
+      slotProps={{
+        paper: {
+          sx: {
+            maxHeight: "calc(100dvh - 48px)",
+            overflow: "hidden",
+            borderRadius: 3,
+          },
+        },
+      }}
+      sx={{
+        "& .MuiDialog-paper": {
+          display: "flex",
+          flexDirection: "column",
+        },
+      }}
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogHeader title={title} onClose={onClose} disabled={loading} />
       <Formik
         key={`${title}-${open}-${lead?.id || ""}`}
         enableReinitialize
@@ -94,8 +109,12 @@ const LeadDialog = ({
           });
 
           return (
-            <form onSubmit={handleSubmit} noValidate>
-              <DialogContent>
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              style={{ display: "flex", flexDirection: "column", minHeight: 0, flex: 1 }}
+            >
+              <DialogContent sx={{ flex: 1, overflowY: "auto" }}>
                 <Stack spacing={3}>
                   <Grid container spacing={3}>
                     <Grid size={{ xs: 12, sm: 6 }}>
@@ -131,7 +150,7 @@ const LeadDialog = ({
                   />
                 </Stack>
               </DialogContent>
-              <DialogActions sx={{ px: 3, py: 2 }}>
+              <DialogActions sx={{ px: 3, py: 2, flexShrink: 0 }}>
                 <Button
                   variant="secondary"
                   onClick={onClose}
