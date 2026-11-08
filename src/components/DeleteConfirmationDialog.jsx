@@ -5,7 +5,6 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import LoadingButton from "./LoadingButton.jsx";
 import Button from "./Button.jsx";
 
 const DeleteConfirmationDialog = ({
@@ -35,7 +34,7 @@ const DeleteConfirmationDialog = ({
       <Button variant="secondary" onClick={onClose} disabled={loading}>
         Cancel
       </Button>
-      <LoadingButton
+      <Button
         color="error"
         variant="contained"
         onClick={onConfirm}
@@ -43,7 +42,7 @@ const DeleteConfirmationDialog = ({
         loadingText="Deleting..."
       >
         {confirmLabel}
-      </LoadingButton>
+      </Button>
     </DialogActions>
   </Dialog>
 );

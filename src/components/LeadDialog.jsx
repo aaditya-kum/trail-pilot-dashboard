@@ -1,9 +1,15 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Stack, Grid } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  Grid,
+} from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "./FormInput.jsx";
 import FormSelect from "./FormSelect.jsx";
-import LoadingButton from "./LoadingButton.jsx";
 import Button from "./Button.jsx";
 import { LEAD_STATUS_OPTIONS } from "../utils/leadStatus.js";
 
@@ -126,10 +132,14 @@ const LeadDialog = ({
                 </Stack>
               </DialogContent>
               <DialogActions>
-                <Button variant="secondary" onClick={onClose} disabled={loading}>
+                <Button
+                  variant="secondary"
+                  onClick={onClose}
+                  disabled={loading}
+                >
                   Cancel
                 </Button>
-                <LoadingButton
+                <Button
                   type="submit"
                   variant="contained"
                   loading={loading}
@@ -137,7 +147,7 @@ const LeadDialog = ({
                   disabled={isSubmitting}
                 >
                   {submitLabel}
-                </LoadingButton>
+                </Button>
               </DialogActions>
             </form>
           );

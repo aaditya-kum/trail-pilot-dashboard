@@ -9,7 +9,6 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "./FormInput.jsx";
-import LoadingButton from "./LoadingButton.jsx";
 import Button from "./Button.jsx";
 
 const EMPTY_PACKAGE = {
@@ -36,7 +35,10 @@ const packageValidationSchema = Yup.object({
     .min(1, "Duration must be at least 1 day")
     .required("Duration is required"),
   description: Yup.string().trim().required("Description is required"),
-  image: Yup.string().trim().url("Enter a valid image URL").required("Image URL is required"),
+  image: Yup.string()
+    .trim()
+    .url("Enter a valid image URL")
+    .required("Image URL is required"),
 });
 
 const PackageDialog = ({
@@ -58,7 +60,9 @@ const PackageDialog = ({
     <Formik
       key={`${title}-${open}-${travelPackage?.id || ""}`}
       enableReinitialize
-      initialValues={travelPackage ? { ...EMPTY_PACKAGE, ...travelPackage } : EMPTY_PACKAGE}
+      initialValues={
+        travelPackage ? { ...EMPTY_PACKAGE, ...travelPackage } : EMPTY_PACKAGE
+      }
       validationSchema={packageValidationSchema}
       onSubmit={(values) => onSubmit(values)}
     >
@@ -95,10 +99,16 @@ const PackageDialog = ({
                     <FormInput {...fieldProps("destination", "Destination")} />
                   </Grid>
                   <Grid size={{ xs: 12, sm: 6 }}>
-                    <FormInput {...fieldProps("price", "Price", { type: "number" })} />
+                    <FormInput
+                      {...fieldProps("price", "Price", { type: "number" })}
+                    />
                   </Grid>
                   <Grid size={{ xs: 12, sm: 6 }}>
-                    <FormInput {...fieldProps("duration", "Duration (days)", { type: "number" })} />
+                    <FormInput
+                      {...fieldProps("duration", "Duration (days)", {
+                        type: "number",
+                      })}
+                    />
                   </Grid>
                 </Grid>
                 <FormInput {...fieldProps("image", "Image URL")} />
@@ -114,7 +124,7 @@ const PackageDialog = ({
               <Button variant="secondary" onClick={onClose} disabled={loading}>
                 Cancel
               </Button>
-              <LoadingButton
+              <Button
                 type="submit"
                 variant="contained"
                 loading={loading}
@@ -122,7 +132,7 @@ const PackageDialog = ({
                 disabled={isSubmitting}
               >
                 {submitLabel}
-              </LoadingButton>
+              </Button>
             </DialogActions>
           </form>
         );

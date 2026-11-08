@@ -152,7 +152,7 @@ const Leads = () => {
       label: "Actions",
       align: "center",
       render: (_, lead) => (
-        <Stack direction="row" spacing={0.5} justifyContent="center">
+        <Stack direction="row" spacing={0.5}>
           <Tooltip title="Edit lead">
             <IconButton
               aria-label={`Edit ${lead.name || "lead"}`}

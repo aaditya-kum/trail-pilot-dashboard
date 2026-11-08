@@ -162,7 +162,7 @@ const Packages = () => {
       label: "Actions",
       align: "center",
       render: (_, travelPackage) => (
-        <Stack direction="row" spacing={0.5} justifyContent="center">
+        <Stack direction="row" spacing={0.5}>
           <Tooltip title="Edit package">
             <IconButton
               aria-label={`Edit ${travelPackage.name || "package"}`}

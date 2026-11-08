@@ -1,6 +1,15 @@
-import MuiButton from "@mui/material/Button";
+import { Button as MuiButton, CircularProgress } from "@mui/material";
 
-const Button = ({ variant = "contained", children, sx, ...props }) => {
+const Button = ({
+  variant = "contained",
+  children,
+  sx,
+  loading = false,
+  loadingText,
+  disabled,
+  startIcon,
+  ...props
+}) => {
   const isSecondary = variant === "secondary";
   const muiVariant = isSecondary ? "outlined" : variant;
 
@@ -8,6 +17,10 @@ const Button = ({ variant = "contained", children, sx, ...props }) => {
     <MuiButton
       {...props}
       variant={muiVariant}
+      disabled={loading || disabled}
+      startIcon={
+        loading ? <CircularProgress color="inherit" size={16} /> : startIcon
+      }
       sx={[
         {
           textTransform: "none",
@@ -25,7 +38,7 @@ const Button = ({ variant = "contained", children, sx, ...props }) => {
         ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
       ]}
     >
-      {children}
+      {loading && loadingText ? loadingText : children}
     </MuiButton>
   );
 };
