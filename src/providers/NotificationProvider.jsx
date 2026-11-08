@@ -25,6 +25,7 @@ export const NotificationProvider = ({ children }) => {
         open={notification.open}
         autoHideDuration={4000}
         onClose={closeNotification}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           severity={notification.severity}
@@ -42,9 +43,7 @@ export const useNotification = () => {
   const context = useContext(NotificationContext);
 
   if (!context) {
-    throw new Error(
-      "useNotification must be used within NotificationProvider",
-    );
+    throw new Error("useNotification must be used within NotificationProvider");
   }
 
   return context;

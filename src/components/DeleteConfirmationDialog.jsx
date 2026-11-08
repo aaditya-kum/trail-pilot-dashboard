@@ -30,7 +30,7 @@ const DeleteConfirmationDialog = ({
           : "Are you sure you want to delete this item?"}
       </Typography>
     </DialogContent>
-    <DialogActions>
+    <DialogActions sx={{ px: 3, py: 2 }}>
       <Button variant="secondary" onClick={onClose} disabled={loading}>
         Cancel
       </Button>

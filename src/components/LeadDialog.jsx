@@ -131,7 +131,7 @@ const LeadDialog = ({
                   />
                 </Stack>
               </DialogContent>
-              <DialogActions>
+              <DialogActions sx={{ px: 3, py: 2 }}>
                 <Button
                   variant="secondary"
                   onClick={onClose}
