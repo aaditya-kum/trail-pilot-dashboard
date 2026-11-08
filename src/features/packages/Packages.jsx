@@ -21,6 +21,7 @@ import {
   DeleteConfirmationDialog,
   FormInput,
   PackageDialog,
+  Pagination,
 } from "../../components";
 import {
   addPackage,
@@ -42,6 +43,8 @@ const Packages = () => {
   const [editingPackage, setEditingPackage] = useState(null);
   const [deletingPackage, setDeletingPackage] = useState(null);
   const [viewingDescription, setViewingDescription] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5;
 
   useEffect(() => {
     dispatch(fetchPackages());
@@ -61,6 +64,22 @@ const Packages = () => {
       ),
     );
   }, [packages, search]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredPackages.length / pageSize));
+  const paginatedPackages = filteredPackages.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const columns = [
     {
@@ -217,12 +236,18 @@ const Packages = () => {
 
         <DataTable
           columns={columns}
-          rows={filteredPackages}
+          rows={paginatedPackages}
           loading={loading}
           error={error}
           emptyMessage={
             search ? "No matching packages found" : "No packages found"
           }
+        />
+        <Pagination
+          page={currentPage}
+          pageSize={pageSize}
+          totalItems={filteredPackages.length}
+          onPageChange={setCurrentPage}
         />
       </Paper>
 

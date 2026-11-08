@@ -7,3 +7,4 @@ export { default as DeleteConfirmationDialog } from "./DeleteConfirmationDialog.
 export { default as FormSelect } from "./FormSelect.jsx";
 export { default as TableSkeleton } from "./TableSkeleton/TableSkeleton.jsx";
 export { default as PackageDialog } from "./PackageDialog.jsx";
+export { default as Pagination } from "./Pagination.jsx";

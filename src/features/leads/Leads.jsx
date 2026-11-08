@@ -16,6 +16,7 @@ import {
   DeleteConfirmationDialog,
   FormInput,
   LeadDialog,
+  Pagination,
 } from "../../components";
 import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
 import "../dashboard/dashboard.scss";
@@ -27,6 +28,8 @@ const Leads = () => {
   const [creatingLead, setCreatingLead] = useState(false);
   const [editingLead, setEditingLead] = useState(null);
   const [deletingLead, setDeletingLead] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 6;
 
   useEffect(() => {
     dispatch(fetchLeads());
@@ -43,6 +46,22 @@ const Leads = () => {
       ),
     );
   }, [leads, search]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredLeads.length / pageSize));
+  const paginatedLeads = filteredLeads.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const handleCreate = (lead) => {
     dispatch(addLead(lead));
@@ -178,10 +197,16 @@ const Leads = () => {
 
         <DataTable
           columns={columns}
-          rows={filteredLeads}
+          rows={paginatedLeads}
           loading={loading}
           error={error}
           emptyMessage={search ? "No matching leads found" : "No leads found"}
+        />
+        <Pagination
+          page={currentPage}
+          pageSize={pageSize}
+          totalItems={filteredLeads.length}
+          onPageChange={setCurrentPage}
         />
       </Paper>
 
