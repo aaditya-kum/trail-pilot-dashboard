@@ -43,6 +43,10 @@
 
 .item.active {
   color: #3b82f6;
+
+  .label {
+    font-weight: 600;
+  }
 }
 
 .icon {

@@ -3,13 +3,19 @@ import { Box, Card, CardContent, Typography } from "@mui/material";
 const StatCard = ({ label, value, detail, tone = "blue" }) => (
   <Card
     variant="outlined"
-    sx={{ borderRadius: 2, boxShadow: "0 2px 8px rgba(15, 23, 42, 0.04)" }}
+    sx={{
+      height: "100%",
+      borderRadius: 2,
+      boxShadow: "0 2px 8px rgba(15, 23, 42, 0.04)",
+    }}
   >
     <CardContent
       sx={{
         display: "flex",
         alignItems: "center",
         gap: 2,
+        height: "100%",
+        boxSizing: "border-box",
         p: 2.5,
         "&:last-child": { pb: 2.5 },
       }}
@@ -21,18 +27,42 @@ const StatCard = ({ label, value, detail, tone = "blue" }) => (
         {label.charAt(0)}
       </Box>
       <Box>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          sx={{
+            color: "#64748b",
+            fontSize: "0.75rem",
+            fontWeight: 500,
+            lineHeight: 1.25,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+          }}
+        >
           {label}
         </Typography>
         <Typography
-          variant="h5"
           component="strong"
-          fontWeight={700}
-          sx={{ marginRight: 1 }}
+          sx={{
+            display: "block",
+            mt: 0.75,
+            mr: 1,
+            color: "#0f172a",
+            fontSize: "1.5rem",
+            fontWeight: 700,
+            lineHeight: 1.25,
+            letterSpacing: "-0.025em",
+          }}
         >
           {value}
         </Typography>
-        <Typography variant="caption" color="text.disabled" display="block">
+        <Typography
+          sx={{
+            mt: 0.25,
+            color: "#64748b",
+            fontSize: 12,
+            fontWeight: 400,
+            lineHeight: 1.25,
+          }}
+        >
           {detail}
         </Typography>
       </Box>

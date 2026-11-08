@@ -40,7 +40,13 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
       variant="outlined"
       sx={{
         width: "100%",
+        height: "100%",
+        minHeight: { xs: "auto", lg: 420 },
+        boxSizing: "border-box",
         maxWidth: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
         borderRadius: 2.5,
         overflow: "hidden",
         boxShadow: "0 8px 24px rgba(15, 23, 42, 0.06)",
@@ -52,7 +58,8 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
       >
         <Typography
           component="h2"
-          sx={{ fontSize: 20, lineHeight: 1.25, fontWeight: 700 }}
+          className="dashboard-card-title"
+          sx={{ fontWeight: 600 }}
         >
           Recent leads
         </Typography>
@@ -64,13 +71,15 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
             fontWeight: 700,
             textTransform: "none",
             minWidth: 0,
+            fontSize: 14,
+            lineHeight: 1.25,
           }}
         >
           View all &gt;
         </Button>
       </Box>
 
-      <Box sx={{ px: { xs: 2, sm: 3 } }}>
+      <Box sx={{ px: { xs: 2, sm: 3 }, flex: 1 }}>
         {loading &&
           Array.from({ length: 5 }).map((_, index) => (
             <Box key={index} sx={{ py: 2 }}>
@@ -113,14 +122,24 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
                   <Box sx={{ minWidth: 0 }}>
                     <Typography
                       fontWeight={500}
-                      sx={{ fontSize: 20, lineHeight: 1.25 }}
+                      sx={{
+                        color: "#0f172a",
+                        fontSize: 14,
+                        fontWeight: 500,
+                        lineHeight: 1.25,
+                      }}
                     >
                       {lead.name || "—"}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      sx={{ mt: 0.5, fontSize: 15, lineHeight: 1.25 }}
+                      sx={{
+                        mt: 0.5,
+                        color: "#64748b",
+                        fontSize: 12,
+                        lineHeight: 1.25,
+                      }}
                     >
                       {[lead.destination, travelDate].filter(Boolean).join(" · ")}
                     </Typography>

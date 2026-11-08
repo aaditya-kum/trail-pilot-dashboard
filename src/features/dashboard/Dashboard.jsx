@@ -87,7 +87,8 @@ const Dashboard = () => {
             xs: "1fr",
             lg: "minmax(0, 3fr) minmax(0, 2fr)",
           },
-          alignItems: "start",
+          alignItems: "stretch",
+          minHeight: { xs: "auto", lg: 420 },
           gap: 3,
         }}
       >

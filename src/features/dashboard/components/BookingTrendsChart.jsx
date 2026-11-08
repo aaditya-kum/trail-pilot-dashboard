@@ -51,6 +51,12 @@ const BookingTrendsChart = ({ leads = [], loading = false }) => {
       component="section"
       aria-label="Booking trends"
       sx={{
+        height: "100%",
+        minHeight: { xs: 340, lg: 420 },
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
         border: "1px solid",
         borderColor: "divider",
         borderRadius: 2.5,
@@ -59,27 +65,37 @@ const BookingTrendsChart = ({ leads = [], loading = false }) => {
         boxShadow: "0 8px 24px rgba(15, 23, 42, 0.06)",
       }}
     >
-      <Typography variant="h6" component="h2" sx={{ mb: 4 }}>
+      <Typography
+        component="h2"
+        className="dashboard-card-title"
+        sx={{ fontWeight: 600, mb: 4 }}
+      >
         Monthly Booking Trends
       </Typography>
 
       {loading ? (
         <Skeleton variant="rounded" height={260} />
       ) : (
-        <Box sx={{ height: 260 }}>
+        <Box sx={{ flex: 1, minHeight: 260 }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}
               margin={{ top: 8, right: 12, left: 0, bottom: 0 }}
             >
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="label" axisLine={false} tickLine={false} />
+              <XAxis
+                dataKey="label"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#64748b", fontSize: 12 }}
+              />
               <YAxis
                 width={32}
                 allowDecimals={false}
                 domain={[0, "dataMax + 1"]}
                 axisLine={false}
                 tickLine={false}
+                tick={{ fill: "#64748b", fontSize: 12 }}
               />
               <Tooltip formatter={(value) => [value, "Bookings"]} />
               <Line
