@@ -1,16 +1,9 @@
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Button,
-  Stack,
-  Grid,
-} from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Stack, Grid } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "./FormInput.jsx";
 import FormSelect from "./FormSelect.jsx";
+import LoadingButton from "./LoadingButton.jsx";
 import { LEAD_STATUS_OPTIONS } from "../utils/leadStatus.js";
 
 const EMPTY_LEAD = {
@@ -55,9 +48,15 @@ const LeadDialog = ({
   lead = null,
   title = "Add lead",
   submitLabel = "Create lead",
+  loading = false,
 }) => {
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog
+      open={open}
+      onClose={loading ? undefined : onClose}
+      fullWidth
+      maxWidth="sm"
+    >
       <DialogTitle>{title}</DialogTitle>
       <Formik
         key={`${title}-${open}-${lead?.id || ""}`}
@@ -126,14 +125,18 @@ const LeadDialog = ({
                 </Stack>
               </DialogContent>
               <DialogActions>
-                <Button onClick={onClose}>Cancel</Button>
-                <Button
+                <Button onClick={onClose} disabled={loading}>
+                  Cancel
+                </Button>
+                <LoadingButton
                   type="submit"
                   variant="contained"
+                  loading={loading}
+                  loadingText="Saving..."
                   disabled={isSubmitting}
                 >
                   {submitLabel}
-                </Button>
+                </LoadingButton>
               </DialogActions>
             </form>
           );

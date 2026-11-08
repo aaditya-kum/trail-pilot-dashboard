@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
+import LoadingButton from "./LoadingButton.jsx";
 
 const DeleteConfirmationDialog = ({
   open,
@@ -14,8 +15,14 @@ const DeleteConfirmationDialog = ({
   itemName,
   title = "Delete item?",
   confirmLabel = "Delete",
+  loading = false,
 }) => (
-  <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+  <Dialog
+    open={open}
+    onClose={loading ? undefined : onClose}
+    fullWidth
+    maxWidth="xs"
+  >
     <DialogTitle>{title}</DialogTitle>
     <DialogContent>
       <Typography>
@@ -25,10 +32,16 @@ const DeleteConfirmationDialog = ({
       </Typography>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onClose}>Cancel</Button>
-      <Button color="error" variant="contained" onClick={onConfirm}>
+      <Button onClick={onClose} disabled={loading}>Cancel</Button>
+      <LoadingButton
+        color="error"
+        variant="contained"
+        onClick={onConfirm}
+        loading={loading}
+        loadingText="Deleting..."
+      >
         {confirmLabel}
-      </Button>
+      </LoadingButton>
     </DialogActions>
   </Dialog>
 );

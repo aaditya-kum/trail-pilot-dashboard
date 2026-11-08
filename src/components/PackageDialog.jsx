@@ -10,6 +10,7 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "./FormInput.jsx";
+import LoadingButton from "./LoadingButton.jsx";
 
 const EMPTY_PACKAGE = {
   name: "",
@@ -45,8 +46,14 @@ const PackageDialog = ({
   travelPackage = null,
   title = "Add package",
   submitLabel = "Create package",
+  loading = false,
 }) => (
-  <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+  <Dialog
+    open={open}
+    onClose={loading ? undefined : onClose}
+    fullWidth
+    maxWidth="sm"
+  >
     <DialogTitle>{title}</DialogTitle>
     <Formik
       key={`${title}-${open}-${travelPackage?.id || ""}`}
@@ -104,10 +111,16 @@ const PackageDialog = ({
               </Stack>
             </DialogContent>
             <DialogActions>
-              <Button onClick={onClose}>Cancel</Button>
-              <Button type="submit" variant="contained" disabled={isSubmitting}>
+              <Button onClick={onClose} disabled={loading}>Cancel</Button>
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={loading}
+                loadingText="Saving..."
+                disabled={isSubmitting}
+              >
                 {submitLabel}
-              </Button>
+              </LoadingButton>
             </DialogActions>
           </form>
         );

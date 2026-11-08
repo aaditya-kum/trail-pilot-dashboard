@@ -47,6 +47,8 @@ const Packages = () => {
   const [editingPackage, setEditingPackage] = useState(null);
   const [deletingPackage, setDeletingPackage] = useState(null);
   const [viewingDescription, setViewingDescription] = useState(null);
+  const [savingPackage, setSavingPackage] = useState(false);
+  const [deletingPackageLoading, setDeletingPackageLoading] = useState(false);
   const pageSize = 5;
 
   useEffect(() => {
@@ -177,32 +179,41 @@ const Packages = () => {
     error?.message || (typeof error === "string" ? error : fallback);
 
   const handleCreate = async (travelPackage) => {
+    setSavingPackage(true);
     try {
       await dispatch(addPackage(travelPackage)).unwrap();
       setCreatingPackage(false);
       showNotification("success", "Package created successfully");
     } catch (error) {
       showNotification("error", getErrorMessage(error, "Failed to create package"));
+    } finally {
+      setSavingPackage(false);
     }
   };
 
   const handleUpdate = async (travelPackage) => {
+    setSavingPackage(true);
     try {
       await dispatch(updatePackage(travelPackage)).unwrap();
       setEditingPackage(null);
       showNotification("success", "Package updated successfully");
     } catch (error) {
       showNotification("error", getErrorMessage(error, "Failed to update package"));
+    } finally {
+      setSavingPackage(false);
     }
   };
 
   const handleDelete = async () => {
+    setDeletingPackageLoading(true);
     try {
       await dispatch(deletePackage(deletingPackage.id)).unwrap();
       setDeletingPackage(null);
       showNotification("success", "Package deleted successfully");
     } catch (error) {
       showNotification("error", getErrorMessage(error, "Failed to delete package"));
+    } finally {
+      setDeletingPackageLoading(false);
     }
   };
 
@@ -265,11 +276,13 @@ const Packages = () => {
         travelPackage={editingPackage}
         title="Edit package"
         submitLabel="Save changes"
+        loading={savingPackage}
       />
       <PackageDialog
         open={creatingPackage}
         onClose={() => setCreatingPackage(false)}
         onSubmit={handleCreate}
+        loading={savingPackage}
       />
       <Dialog
         open={Boolean(viewingDescription)}
@@ -295,6 +308,7 @@ const Packages = () => {
         onConfirm={handleDelete}
         itemName={deletingPackage?.name}
         title="Delete package?"
+        loading={deletingPackageLoading}
       />
     </div>
   );

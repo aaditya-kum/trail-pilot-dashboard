@@ -33,6 +33,8 @@ const Leads = () => {
   const [creatingLead, setCreatingLead] = useState(false);
   const [editingLead, setEditingLead] = useState(null);
   const [deletingLead, setDeletingLead] = useState(null);
+  const [savingLead, setSavingLead] = useState(false);
+  const [deletingLeadLoading, setDeletingLeadLoading] = useState(false);
   const pageSize = 6;
 
   useEffect(() => {
@@ -61,32 +63,41 @@ const Leads = () => {
     error?.message || (typeof error === "string" ? error : fallback);
 
   const handleCreate = async (lead) => {
+    setSavingLead(true);
     try {
       await dispatch(addLead(lead)).unwrap();
       setCreatingLead(false);
       showNotification("success", "Lead created successfully");
     } catch (error) {
       showNotification("error", getErrorMessage(error, "Failed to create lead"));
+    } finally {
+      setSavingLead(false);
     }
   };
 
   const handleUpdate = async (lead) => {
+    setSavingLead(true);
     try {
       await dispatch(updateLead(lead)).unwrap();
       setEditingLead(null);
       showNotification("success", "Lead updated successfully");
     } catch (error) {
       showNotification("error", getErrorMessage(error, "Failed to update lead"));
+    } finally {
+      setSavingLead(false);
     }
   };
 
   const handleDelete = async () => {
+    setDeletingLeadLoading(true);
     try {
       await dispatch(deleteLead(deletingLead.id)).unwrap();
       setDeletingLead(null);
       showNotification("success", "Lead deleted successfully");
     } catch (error) {
       showNotification("error", getErrorMessage(error, "Failed to delete lead"));
+    } finally {
+      setDeletingLeadLoading(false);
     }
   };
 
@@ -215,11 +226,13 @@ const Leads = () => {
         lead={editingLead}
         title="Edit lead"
         submitLabel="Save changes"
+        loading={savingLead}
       />
       <LeadDialog
         open={creatingLead}
         onClose={() => setCreatingLead(false)}
         onSubmit={handleCreate}
+        loading={savingLead}
       />
       <DeleteConfirmationDialog
         open={Boolean(deletingLead)}
@@ -227,6 +240,7 @@ const Leads = () => {
         onConfirm={handleDelete}
         itemName={deletingLead?.name}
         title="Delete lead?"
+        loading={deletingLeadLoading}
       />
     </div>
   );
