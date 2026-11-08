@@ -22,11 +22,13 @@ import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
 import { LEAD_STATUS_COLORS } from "../../utils/leadStatus.js";
 import usePagination from "../../hooks/usePagination.js";
+import { useNotification } from "../../providers/NotificationProvider.jsx";
 import "../dashboard/dashboard.scss";
 
 const Leads = () => {
   const dispatch = useDispatch();
   const { items: leads, loading, error } = useSelector((state) => state.leads);
+  const { showNotification } = useNotification();
   const [search, setSearch] = useState("");
   const [creatingLead, setCreatingLead] = useState(false);
   const [editingLead, setEditingLead] = useState(null);
@@ -55,19 +57,37 @@ const Leads = () => {
     paginatedItems: paginatedLeads,
   } = usePagination(filteredLeads, pageSize, search);
 
-  const handleCreate = (lead) => {
-    dispatch(addLead(lead));
-    setCreatingLead(false);
+  const getErrorMessage = (error, fallback) =>
+    error?.message || (typeof error === "string" ? error : fallback);
+
+  const handleCreate = async (lead) => {
+    try {
+      await dispatch(addLead(lead)).unwrap();
+      setCreatingLead(false);
+      showNotification("success", "Lead created successfully");
+    } catch (error) {
+      showNotification("error", getErrorMessage(error, "Failed to create lead"));
+    }
   };
 
-  const handleUpdate = (lead) => {
-    dispatch(updateLead(lead));
-    setEditingLead(null);
+  const handleUpdate = async (lead) => {
+    try {
+      await dispatch(updateLead(lead)).unwrap();
+      setEditingLead(null);
+      showNotification("success", "Lead updated successfully");
+    } catch (error) {
+      showNotification("error", getErrorMessage(error, "Failed to update lead"));
+    }
   };
 
-  const handleDelete = () => {
-    dispatch(deleteLead(deletingLead.id));
-    setDeletingLead(null);
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteLead(deletingLead.id)).unwrap();
+      setDeletingLead(null);
+      showNotification("success", "Lead deleted successfully");
+    } catch (error) {
+      showNotification("error", getErrorMessage(error, "Failed to delete lead"));
+    }
   };
 
   const columns = [

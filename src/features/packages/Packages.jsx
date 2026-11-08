@@ -31,6 +31,7 @@ import {
 } from "./packagesSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
 import usePagination from "../../hooks/usePagination.js";
+import { useNotification } from "../../providers/NotificationProvider.jsx";
 import "../dashboard/dashboard.scss";
 
 const Packages = () => {
@@ -40,6 +41,7 @@ const Packages = () => {
     loading,
     error,
   } = useSelector((state) => state.packages);
+  const { showNotification } = useNotification();
   const [search, setSearch] = useState("");
   const [creatingPackage, setCreatingPackage] = useState(false);
   const [editingPackage, setEditingPackage] = useState(null);
@@ -171,19 +173,37 @@ const Packages = () => {
     },
   ];
 
-  const handleCreate = (travelPackage) => {
-    dispatch(addPackage(travelPackage));
-    setCreatingPackage(false);
+  const getErrorMessage = (error, fallback) =>
+    error?.message || (typeof error === "string" ? error : fallback);
+
+  const handleCreate = async (travelPackage) => {
+    try {
+      await dispatch(addPackage(travelPackage)).unwrap();
+      setCreatingPackage(false);
+      showNotification("success", "Package created successfully");
+    } catch (error) {
+      showNotification("error", getErrorMessage(error, "Failed to create package"));
+    }
   };
 
-  const handleUpdate = (travelPackage) => {
-    dispatch(updatePackage(travelPackage));
-    setEditingPackage(null);
+  const handleUpdate = async (travelPackage) => {
+    try {
+      await dispatch(updatePackage(travelPackage)).unwrap();
+      setEditingPackage(null);
+      showNotification("success", "Package updated successfully");
+    } catch (error) {
+      showNotification("error", getErrorMessage(error, "Failed to update package"));
+    }
   };
 
-  const handleDelete = () => {
-    dispatch(deletePackage(deletingPackage.id));
-    setDeletingPackage(null);
+  const handleDelete = async () => {
+    try {
+      await dispatch(deletePackage(deletingPackage.id)).unwrap();
+      setDeletingPackage(null);
+      showNotification("success", "Package deleted successfully");
+    } catch (error) {
+      showNotification("error", getErrorMessage(error, "Failed to delete package"));
+    }
   };
 
   return (
