@@ -30,6 +30,7 @@ import {
   updatePackage,
 } from "./packagesSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
+import usePagination from "../../hooks/usePagination.js";
 import "../dashboard/dashboard.scss";
 
 const Packages = () => {
@@ -44,7 +45,6 @@ const Packages = () => {
   const [editingPackage, setEditingPackage] = useState(null);
   const [deletingPackage, setDeletingPackage] = useState(null);
   const [viewingDescription, setViewingDescription] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
   useEffect(() => {
@@ -66,21 +66,11 @@ const Packages = () => {
     );
   }, [packages, search]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredPackages.length / pageSize));
-  const paginatedPackages = filteredPackages.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
-  );
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
+  const {
+    page: currentPage,
+    setPage: setCurrentPage,
+    paginatedItems: paginatedPackages,
+  } = usePagination(filteredPackages, pageSize, search);
 
   const columns = [
     {

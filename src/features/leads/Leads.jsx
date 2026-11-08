@@ -21,6 +21,7 @@ import {
 import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
 import { LEAD_STATUS_COLORS } from "../../utils/leadStatus.js";
+import usePagination from "../../hooks/usePagination.js";
 import "../dashboard/dashboard.scss";
 
 const Leads = () => {
@@ -30,7 +31,6 @@ const Leads = () => {
   const [creatingLead, setCreatingLead] = useState(false);
   const [editingLead, setEditingLead] = useState(null);
   const [deletingLead, setDeletingLead] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
 
   useEffect(() => {
@@ -49,21 +49,11 @@ const Leads = () => {
     );
   }, [leads, search]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredLeads.length / pageSize));
-  const paginatedLeads = filteredLeads.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
-  );
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
+  const {
+    page: currentPage,
+    setPage: setCurrentPage,
+    paginatedItems: paginatedLeads,
+  } = usePagination(filteredLeads, pageSize, search);
 
   const handleCreate = (lead) => {
     dispatch(addLead(lead));
