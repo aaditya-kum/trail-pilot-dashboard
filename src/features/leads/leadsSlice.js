@@ -29,8 +29,7 @@ export const updateLead = createAsyncThunk(
   "leads/update",
   async (lead, { rejectWithValue }) => {
     try {
-      const id = lead.id ?? lead._id;
-      const response = await api.put(`/leads/${id}`, lead);
+      const response = await api.put(`/leads/${lead.id}`, lead);
       return response.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -61,30 +60,25 @@ const leadsSlice = createSlice({
     })
       .addCase(fetchLeads.fulfilled, (s, a) => {
         s.loading = false;
-        s.items = Array.isArray(a.payload)
-          ? a.payload
-          : Array.isArray(a.payload?.data)
-            ? a.payload.data
-            : [];
+        s.items = a.payload;
       })
       .addCase(fetchLeads.rejected, (s, a) => {
         s.loading = false;
         s.error = a.payload;
       })
       .addCase(addLead.fulfilled, (s, a) => {
-        const createdLead = a.payload?.data ?? a.payload;
-        if (createdLead) s.items.push(createdLead);
+        s.items.push(a.payload);
       })
       .addCase(updateLead.fulfilled, (s, a) => {
         const updatedLead = a.payload;
-        const leadId = updatedLead?.id;
+        const leadId = updatedLead.id;
         const i = s.items.findIndex((l) => l.id === leadId);
         if (i !== -1) {
           s.items[i] = updatedLead;
         }
       })
       .addCase(deleteLead.fulfilled, (s, a) => {
-        s.items = s.items.filter((l) => (l.id ?? l._id) !== a.payload);
+        s.items = s.items.filter((lead) => lead.id !== a.payload);
       });
   },
 });

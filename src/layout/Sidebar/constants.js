@@ -33,9 +33,3 @@ export const SIDEBAR_FOOTER_ITEMS = [
     disabled: true,
   },
 ];
-
-// EXACT Figma dimensions
-export const SIDEBAR_WIDTH = {
-  EXPANDED: 286, // EXACT Figma measurement
-  COLLAPSED: 68, // EXACT Figma measurement
-};

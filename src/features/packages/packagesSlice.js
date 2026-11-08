@@ -29,8 +29,10 @@ export const updatePackage = createAsyncThunk(
   "packages/update",
   async (travelPackage, { rejectWithValue }) => {
     try {
-      const id = travelPackage.id ?? travelPackage._id;
-      const response = await api.put(`/packages/${id}`, travelPackage);
+      const response = await api.put(
+        `/packages/${travelPackage.id}`,
+        travelPackage,
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -62,31 +64,25 @@ const packagesSlice = createSlice({
       })
       .addCase(fetchPackages.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = Array.isArray(action.payload)
-          ? action.payload
-          : Array.isArray(action.payload?.data)
-            ? action.payload.data
-            : [];
+        state.items = action.payload;
       })
       .addCase(fetchPackages.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
       .addCase(addPackage.fulfilled, (state, action) => {
-        const createdPackage = action.payload?.data ?? action.payload;
-        if (createdPackage) state.items.push(createdPackage);
+        state.items.push(action.payload);
       })
       .addCase(updatePackage.fulfilled, (state, action) => {
-        const updatedPackage = action.payload?.data ?? action.payload;
-        const id = updatedPackage?.id ?? updatedPackage?._id;
+        const updatedPackage = action.payload;
         const index = state.items.findIndex(
-          (item) => (item.id ?? item._id) === id,
+          (item) => item.id === updatedPackage.id,
         );
         if (index !== -1) state.items[index] = updatedPackage;
       })
       .addCase(deletePackage.fulfilled, (state, action) => {
         state.items = state.items.filter(
-          (item) => (item.id ?? item._id) !== action.payload,
+          (item) => item.id !== action.payload,
         );
       });
   },

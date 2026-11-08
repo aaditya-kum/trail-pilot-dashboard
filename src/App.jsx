@@ -3,7 +3,7 @@ import { AppLayout } from "./layout/AppLayout";
 import Dashboard from "./features/dashboard/Dashboard.jsx";
 import Leads from "./features/leads/Leads.jsx";
 import Packages from "./features/packages/Packages.jsx";
-import NotFound from "./features/not-found/NotFound.jsx";
+import NotFound from "./components/not-found/NotFound.jsx";
 
 function App() {
   return (

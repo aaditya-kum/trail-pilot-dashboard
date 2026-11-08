@@ -26,11 +26,7 @@ const DataTable = ({
         borderRadius: 2,
       }}
     >
-      <Table
-      // sx={{
-      //   minWidth: { xs: 550, sm: 850 },
-      // }}
-      >
+      <Table>
         <TableHead
           sx={{
             "& th:first-of-type": { borderTopLeftRadius: 8 },
