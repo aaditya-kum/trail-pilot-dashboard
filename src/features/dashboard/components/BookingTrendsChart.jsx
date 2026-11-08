@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { parseDate } from "../../../utils/formatDate.js";
 
 const LINE_COLOR = "#2563eb";
 const MONTHS_BACK = 2; // how many past months to show
@@ -34,8 +35,12 @@ const getChartData = (leads) => {
   // Count only Converted leads, grouped by travel month
   leads.forEach((lead) => {
     if (lead.status !== "Converted" || !lead.travelDate) return;
+    const travelDate = parseDate(lead.travelDate);
+    if (!travelDate) return;
     const month = months.find(
-      (m) => m.key === String(lead.travelDate).slice(0, 7),
+      (m) =>
+        m.key ===
+        `${travelDate.getFullYear()}-${String(travelDate.getMonth() + 1).padStart(2, "0")}`,
     );
     if (month) month.bookings += 1;
   });

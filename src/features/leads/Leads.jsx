@@ -21,6 +21,7 @@ import {
 } from "../../components";
 import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
+import { formatDate } from "../../utils/formatDate.js";
 import { LEAD_STATUS_OPTIONS } from "../../utils/leadStatus.js";
 import usePagination from "../../hooks/usePagination.js";
 import { useNotification } from "../../providers/NotificationProvider.jsx";
@@ -140,8 +141,7 @@ const Leads = () => {
     {
       id: "travelDate",
       label: "Date",
-      render: (value) =>
-        value ? new Date(`${value}T00:00:00`).toLocaleDateString("en-IN") : "—",
+      render: (value) => formatDate(value),
     },
     {
       id: "status",

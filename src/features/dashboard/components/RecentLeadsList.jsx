@@ -8,19 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { StatusBadge } from "../../../components";
-
-const formatTravelDate = (travelDate) => {
-  if (!travelDate) return null;
-
-  const date = new Date(`${travelDate}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return null;
-
-  return date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-};
+import { formatDate, parseDate } from "../../../utils/formatDate.js";
 
 const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
   const navigate = useNavigate();
@@ -97,7 +85,7 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
           !error &&
           visibleLeads.map((lead, index) => {
             const status = lead.status || "New";
-            const travelDate = formatTravelDate(lead.travelDate);
+            const travelDate = parseDate(lead.travelDate) ? formatDate(lead.travelDate) : null;
 
             return (
               <Box key={lead.id || index}>

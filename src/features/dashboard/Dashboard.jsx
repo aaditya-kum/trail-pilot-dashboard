@@ -7,6 +7,7 @@ import { fetchLeads } from "../leads/leadsSlice.js";
 import BookingTrendsChart from "./components/BookingTrendsChart.jsx";
 import RecentLeadsList from "./components/RecentLeadsList.jsx";
 import { formatINR } from "../../utils/formatCurrency.js";
+import { parseDate } from "../../utils/formatDate.js";
 import "./dashboard.scss";
 
 const Dashboard = () => {
@@ -45,7 +46,8 @@ const Dashboard = () => {
       label: "Upcoming Trips",
       value: leads.filter((lead) => {
         if (lead.status !== "Converted" || !lead.travelDate) return false;
-        const travelDate = new Date(`${lead.travelDate}T00:00:00`);
+        const travelDate = parseDate(lead.travelDate);
+        if (!travelDate) return false;
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         return travelDate > today;
