@@ -17,7 +17,7 @@ const DataTable = ({
   emptyMessage = "No data found",
   getRowId = (row) => row.id,
 }) => (
-  <Box sx={{ p: { xs: 2, sm: 3 } }}>
+  <Box sx={{ p: { xs: 2, sm: 2.5 } }}>
     <TableContainer
       sx={{
         overflowX: "auto",
@@ -60,9 +60,7 @@ const DataTable = ({
             "& tr:last-child td:last-of-type": { borderBottomRightRadius: 8 },
           }}
         >
-          {loading && (
-            <TableSkeleton columns={columns.length} rows={5} />
-          )}
+          {loading && <TableSkeleton columns={columns.length} rows={5} />}
           {!loading && error && (
             <TableRow>
               <TableCell colSpan={columns.length}>

@@ -97,8 +97,8 @@ const LeadDialog = ({
           return (
             <form onSubmit={handleSubmit} noValidate>
               <DialogContent>
-                <Stack spacing={2}>
-                  <Grid container spacing={2}>
+                <Stack spacing={3}>
+                  <Grid container spacing={3}>
                     <Grid size={{ xs: 12, sm: 6 }}>
                       <FormInput {...fieldProps("name", "Name")} />
                     </Grid>

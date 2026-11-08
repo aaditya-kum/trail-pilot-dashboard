@@ -161,7 +161,7 @@ const Leads = () => {
           boxShadow: "0 8px 24px rgba(15, 23, 42, 0.06)",
         }}
       >
-        <Box className="dashboard-panel-header">
+        <Box className="dashboard-panel-header" sx={{ pb: 0 }}>
           <Typography variant="h6" component="h2">
             All leads
           </Typography>

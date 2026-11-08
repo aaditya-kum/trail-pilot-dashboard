@@ -82,9 +82,9 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
       <Box sx={{ px: { xs: 2, sm: 3 }, flex: 1 }}>
         {loading &&
           Array.from({ length: 5 }).map((_, index) => (
-            <Box key={index} sx={{ py: 2 }}>
-              <Skeleton variant="text" width="55%" height={28} />
-              <Skeleton variant="text" width="65%" height={20} />
+            <Box key={index} sx={{ py: 1 }}>
+              <Skeleton variant="text" width="55%" height={20} />
+              <Skeleton variant="text" width="65%" height={15} />
               {index < 4 && <Divider sx={{ mt: 2 }} />}
             </Box>
           ))}
@@ -141,7 +141,9 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
                         lineHeight: 1.25,
                       }}
                     >
-                      {[lead.destination, travelDate].filter(Boolean).join(" · ")}
+                      {[lead.destination, travelDate]
+                        .filter(Boolean)
+                        .join(" · ")}
                     </Typography>
                   </Box>
                   <Chip

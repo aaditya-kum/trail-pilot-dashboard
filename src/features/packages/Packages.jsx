@@ -32,9 +32,11 @@ import "../dashboard/dashboard.scss";
 
 const Packages = () => {
   const dispatch = useDispatch();
-  const { items: packages, loading, error } = useSelector(
-    (state) => state.packages,
-  );
+  const {
+    items: packages,
+    loading,
+    error,
+  } = useSelector((state) => state.packages);
   const [search, setSearch] = useState("");
   const [creatingPackage, setCreatingPackage] = useState(false);
   const [editingPackage, setEditingPackage] = useState(null);
@@ -48,12 +50,15 @@ const Packages = () => {
   const filteredPackages = useMemo(() => {
     const query = search.toLowerCase();
     return packages.filter((travelPackage) =>
-      [travelPackage.name, travelPackage.destination, travelPackage.description]
-        .some((value) =>
-          String(value || "")
-            .toLowerCase()
-            .includes(query),
-        ),
+      [
+        travelPackage.name,
+        travelPackage.destination,
+        travelPackage.description,
+      ].some((value) =>
+        String(value || "")
+          .toLowerCase()
+          .includes(query),
+      ),
     );
   }, [packages, search]);
 
@@ -73,7 +78,9 @@ const Packages = () => {
     {
       id: "name",
       label: "Name",
-      render: (value) => <Typography fontWeight={700}>{value || "—"}</Typography>,
+      render: (value) => (
+        <Typography fontWeight={700}>{value || "—"}</Typography>
+      ),
     },
     { id: "destination", label: "Destination" },
     {
@@ -193,7 +200,7 @@ const Packages = () => {
           boxShadow: "0 8px 24px rgba(15, 23, 42, 0.06)",
         }}
       >
-        <Box className="dashboard-panel-header">
+        <Box className="dashboard-panel-header" sx={{ pb: 0 }}>
           <Typography variant="h6" component="h2">
             All packages
           </Typography>
@@ -213,7 +220,9 @@ const Packages = () => {
           rows={filteredPackages}
           loading={loading}
           error={error}
-          emptyMessage={search ? "No matching packages found" : "No packages found"}
+          emptyMessage={
+            search ? "No matching packages found" : "No packages found"
+          }
         />
       </Paper>
 
@@ -236,7 +245,9 @@ const Packages = () => {
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle>{viewingDescription?.name || "Package description"}</DialogTitle>
+        <DialogTitle>
+          {viewingDescription?.name || "Package description"}
+        </DialogTitle>
         <DialogContent>
           <Typography sx={{ whiteSpace: "pre-wrap" }}>
             {viewingDescription?.description || "—"}
