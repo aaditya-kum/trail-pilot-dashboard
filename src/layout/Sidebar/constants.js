@@ -10,9 +10,9 @@ import {
 export const SIDEBAR_NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", path: "/", icon: FiGrid },
   {
-    id: "analytics",
-    label: "Analytics",
-    path: "/analytics",
+    id: "leads",
+    label: "Leads",
+    path: "/leads",
     icon: FiBarChart2,
   },
   { id: "projects", label: "Projects", path: "/projects", icon: FiFolder },
