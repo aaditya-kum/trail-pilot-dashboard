@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -11,6 +10,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "./FormInput.jsx";
 import LoadingButton from "./LoadingButton.jsx";
+import Button from "./Button.jsx";
 
 const EMPTY_PACKAGE = {
   name: "",
@@ -111,7 +111,9 @@ const PackageDialog = ({
               </Stack>
             </DialogContent>
             <DialogActions>
-              <Button onClick={onClose} disabled={loading}>Cancel</Button>
+              <Button variant="secondary" onClick={onClose} disabled={loading}>
+                Cancel
+              </Button>
               <LoadingButton
                 type="submit"
                 variant="contained"

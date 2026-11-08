@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Avatar,
   Box,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -17,6 +16,7 @@ import {
 } from "@mui/material";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import {
+  Button,
   DataTable,
   DeleteConfirmationDialog,
   FormSelect,
@@ -342,7 +342,12 @@ const Packages = () => {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setViewingDescription(null)}>Close</Button>
+          <Button
+            variant="secondary"
+            onClick={() => setViewingDescription(null)}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
       <DeleteConfirmationDialog

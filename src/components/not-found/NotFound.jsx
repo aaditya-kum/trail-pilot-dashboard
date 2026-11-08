@@ -1,5 +1,6 @@
-import { Button, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Button from "../Button.jsx";
 
 const NotFound = () => {
   const navigate = useNavigate();

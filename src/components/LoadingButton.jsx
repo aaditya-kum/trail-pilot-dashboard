@@ -1,4 +1,5 @@
-import { Button, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import Button from "./Button.jsx";
 
 const LoadingButton = ({
   loading = false,

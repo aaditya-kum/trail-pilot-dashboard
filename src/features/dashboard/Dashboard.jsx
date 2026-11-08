@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Box, Button } from "@mui/material";
-import { StatCard } from "../../components";
+import { Box } from "@mui/material";
+import { Button, StatCard } from "../../components";
 import { fetchLeads } from "../leads/leadsSlice.js";
 import BookingTrendsChart from "./components/BookingTrendsChart.jsx";
 import RecentLeadsList from "./components/RecentLeadsList.jsx";

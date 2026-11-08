@@ -11,3 +11,4 @@ export { default as Pagination } from "./Pagination.jsx";
 export { default as LoadingButton } from "./LoadingButton.jsx";
 export { default as SearchBar } from "./SearchBar.jsx";
 export { default as StatusBadge } from "./StatusBadge.jsx";
+export { default as Button } from "./Button.jsx";

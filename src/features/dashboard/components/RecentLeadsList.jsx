@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import {
   Box,
-  Button,
   Divider,
   Paper,
   Skeleton,
   Typography,
 } from "@mui/material";
-import { StatusBadge } from "../../../components";
+import { Button, StatusBadge } from "../../../components";
 import { formatDate, parseDate } from "../../../utils/formatDate.js";
 
 const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
@@ -48,8 +47,6 @@ const RecentLeadsList = ({ leads = [], loading = false, error = null }) => {
           onClick={() => navigate("/leads")}
           sx={{
             color: "primary.main",
-            fontWeight: 700,
-            textTransform: "none",
             minWidth: 0,
             fontSize: 14,
             lineHeight: 1.25,
