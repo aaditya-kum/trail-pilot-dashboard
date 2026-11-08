@@ -1,9 +1,30 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Chip, Paper, Typography } from "@mui/material";
-import { DataTable, FormInput, StatCard } from "../../components";
-import { fetchLeads } from "../leads/leadsSlice.js";
+import {
+  Box,
+  Button,
+  Chip,
+  IconButton,
+  Paper,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { FiEdit3, FiTrash2 } from "react-icons/fi";
+import {
+  DataTable,
+  DeleteConfirmationDialog,
+  FormInput,
+  LeadDialog,
+  StatCard,
+} from "../../components";
+import {
+  addLead,
+  deleteLead,
+  fetchLeads,
+  updateLead,
+} from "../leads/leadsSlice.js";
 import "./dashboard.scss";
 
 const Dashboard = () => {
@@ -11,6 +32,9 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { items: leads, loading, error } = useSelector((state) => state.leads);
   const [search, setSearch] = useState("");
+  const [creatingLead, setCreatingLead] = useState(false);
+  const [editingLead, setEditingLead] = useState(null);
+  const [deletingLead, setDeletingLead] = useState(null);
 
   useEffect(() => {
     dispatch(fetchLeads());
@@ -19,7 +43,7 @@ const Dashboard = () => {
   const stats = [
     {
       label: "Leads",
-      value: String(leads.length),
+      value: leads.length,
       detail: "From API",
       tone: "blue",
     },
@@ -27,20 +51,37 @@ const Dashboard = () => {
     { label: "Team members", value: "12", detail: "2 online", tone: "green" },
   ];
 
-  const filteredLeads = leads.filter((lead) => {
-    const query = search.toLowerCase();
-    return [
-      lead.name,
-      lead.email,
-      lead.phone,
-      lead.destination,
-      lead.status,
-    ].some((value) =>
-      String(value || "")
-        .toLowerCase()
-        .includes(query),
-    );
-  });
+  const filteredLeads = useMemo(() => {
+    return leads.filter((lead) => {
+      const query = search.toLowerCase();
+      return [
+        lead.name,
+        lead.email,
+        lead.phone,
+        lead.destination,
+        lead.status,
+      ].some((value) =>
+        String(value || "")
+          .toLowerCase()
+          .includes(query),
+      );
+    });
+  }, [leads, search]);
+
+  const handleCreate = (lead) => {
+    dispatch(addLead(lead));
+    setCreatingLead(false);
+  };
+
+  const handleUpdate = (lead) => {
+    dispatch(updateLead(lead));
+    setEditingLead(null);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteLead(deletingLead.id));
+    setDeletingLead(null);
+  };
 
   const columns = [
     {
@@ -89,6 +130,35 @@ const Dashboard = () => {
         />
       ),
     },
+    {
+      id: "actions",
+      label: "Actions",
+      align: "center",
+      render: (_, lead) => (
+        <Stack direction="row" spacing={0.5} justifyContent="center">
+          <Tooltip title="Edit lead">
+            <IconButton
+              aria-label={`Edit ${lead.name || "lead"}`}
+              color="primary"
+              size="small"
+              onClick={() => setEditingLead({ ...lead })}
+            >
+              <FiEdit3 />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete lead">
+            <IconButton
+              aria-label={`Delete ${lead.name || "lead"}`}
+              color="error"
+              size="small"
+              onClick={() => setDeletingLead(lead)}
+            >
+              <FiTrash2 />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+      ),
+    },
   ];
 
   return (
@@ -134,15 +204,24 @@ const Dashboard = () => {
               Recent leads
             </Typography>
           </Box>
-          <Box sx={{ width: { xs: "100%", sm: 280 } }}>
-            <FormInput
-              name="lead-search"
-              label="Search leads"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder="Name, email, status..."
-            />
-          </Box>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1}
+            sx={{ width: { xs: "100%", sm: "auto" } }}
+          >
+            <Box sx={{ width: { xs: "100%", sm: 280 } }}>
+              <FormInput
+                name="lead-search"
+                label="Search leads"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Name, email, status..."
+              />
+            </Box>
+            <Button variant="contained" onClick={() => setCreatingLead(true)}>
+              Add lead
+            </Button>
+          </Stack>
         </Box>
 
         <DataTable
@@ -153,6 +232,29 @@ const Dashboard = () => {
           emptyMessage={search ? "No matching leads found" : "No leads found"}
         />
       </Paper>
+
+      <LeadDialog
+        open={Boolean(editingLead)}
+        onClose={() => setEditingLead(null)}
+        onSubmit={handleUpdate}
+        lead={editingLead}
+        title="Edit lead"
+        submitLabel="Save changes"
+      />
+
+      <LeadDialog
+        open={creatingLead}
+        onClose={() => setCreatingLead(false)}
+        onSubmit={handleCreate}
+      />
+
+      <DeleteConfirmationDialog
+        open={Boolean(deletingLead)}
+        onClose={() => setDeletingLead(null)}
+        onConfirm={handleDelete}
+        itemName={deletingLead?.name}
+        title="Delete lead?"
+      />
     </div>
   );
 };
