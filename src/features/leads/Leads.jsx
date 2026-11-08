@@ -8,7 +8,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FiEdit3, FiTrash2 } from "react-icons/fi";
+import { FiEdit3, FiMessageSquare, FiTrash2 } from "react-icons/fi";
 import {
   Button,
   DataTable,
@@ -19,6 +19,7 @@ import {
   SearchBar,
   StatusBadge,
 } from "../../components";
+import AssistantDialog from "../assistant/AssistantDialog.jsx";
 import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
 import { formatDate } from "../../utils/formatDate.js";
@@ -36,6 +37,7 @@ const Leads = () => {
   const [creatingLead, setCreatingLead] = useState(false);
   const [editingLead, setEditingLead] = useState(null);
   const [deletingLead, setDeletingLead] = useState(null);
+  const [assistant, setAssistant] = useState({ open: false, lead: null });
   const [savingLead, setSavingLead] = useState(false);
   const [deletingLeadLoading, setDeletingLeadLoading] = useState(false);
   const pageSize = 6;
@@ -153,6 +155,16 @@ const Leads = () => {
       align: "center",
       render: (_, lead) => (
         <Stack direction="row" spacing={0.5}>
+          <Tooltip title="Generate follow-up">
+            <IconButton
+              aria-label={`Generate follow-up for ${lead.name || "lead"}`}
+              color="secondary"
+              size="small"
+              onClick={() => setAssistant({ open: true, lead: { ...lead } })}
+            >
+              <FiMessageSquare />
+            </IconButton>
+          </Tooltip>
           <Tooltip title="Edit lead">
             <IconButton
               aria-label={`Edit ${lead.name || "lead"}`}
@@ -185,9 +197,18 @@ const Leads = () => {
           <p className="dashboard-eyebrow">Lead management</p>
           <h1>Leads</h1>
         </div>
-        <Button variant="contained" onClick={() => setCreatingLead(true)}>
-          Add lead
-        </Button>
+        <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap>
+          <Button
+            variant="secondary"
+            startIcon={<FiMessageSquare />}
+            onClick={() => setAssistant({ open: true, lead: null })}
+          >
+            Follow-up assistant
+          </Button>
+          <Button variant="contained" onClick={() => setCreatingLead(true)}>
+            Add lead
+          </Button>
+        </Stack>
       </header>
 
       <Paper
@@ -259,6 +280,11 @@ const Leads = () => {
         onClose={() => setCreatingLead(false)}
         onSubmit={handleCreate}
         loading={savingLead}
+      />
+      <AssistantDialog
+        open={assistant.open}
+        onClose={() => setAssistant((current) => ({ ...current, open: false }))}
+        lead={assistant.lead}
       />
       <DeleteConfirmationDialog
         open={Boolean(deletingLead)}
