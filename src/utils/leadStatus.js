@@ -1,7 +1,7 @@
 export const LEAD_STATUS_OPTIONS = [
   "New",
-  "Interested",
   "Contacted",
+  "Interested",
   "Converted",
   "Lost",
 ];

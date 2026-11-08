@@ -20,6 +20,7 @@ import {
   DataTable,
   DeleteConfirmationDialog,
   FormInput,
+  FormSelect,
   PackageDialog,
   Pagination,
 } from "../../components";
@@ -43,6 +44,8 @@ const Packages = () => {
   } = useSelector((state) => state.packages);
   const { showNotification } = useNotification();
   const [search, setSearch] = useState("");
+  const [priceFilter, setPriceFilter] = useState("All");
+  const [durationFilter, setDurationFilter] = useState("All");
   const [creatingPackage, setCreatingPackage] = useState(false);
   const [editingPackage, setEditingPackage] = useState(null);
   const [deletingPackage, setDeletingPackage] = useState(null);
@@ -57,24 +60,37 @@ const Packages = () => {
 
   const filteredPackages = useMemo(() => {
     const query = search.toLowerCase();
-    return packages.filter((travelPackage) =>
-      [
-        travelPackage.name,
-        travelPackage.destination,
-        travelPackage.description,
-      ].some((value) =>
-        String(value || "")
-          .toLowerCase()
-          .includes(query),
-      ),
-    );
-  }, [packages, search]);
+    return packages.filter((travelPackage) => {
+      const destination = String(travelPackage.destination || "").toLowerCase();
+      const matchesDestination = destination.includes(query);
+      const price = Number(travelPackage.price) || 0;
+      const duration = Number(travelPackage.duration) || 0;
+
+      const matchesPrice =
+        priceFilter === "All" ||
+        (priceFilter === "Under 50K" && price < 50000) ||
+        (priceFilter === "50K - 1L" && price >= 50000 && price <= 100000) ||
+        (priceFilter === "Above 1L" && price > 100000);
+
+      const matchesDuration =
+        durationFilter === "All" ||
+        (durationFilter === "1 - 3 days" && duration >= 1 && duration <= 3) ||
+        (durationFilter === "4 - 7 days" && duration >= 4 && duration <= 7) ||
+        (durationFilter === "8+ days" && duration >= 8);
+
+      return matchesDestination && matchesPrice && matchesDuration;
+    });
+  }, [packages, search, priceFilter, durationFilter]);
 
   const {
     page: currentPage,
     setPage: setCurrentPage,
     paginatedItems: paginatedPackages,
-  } = usePagination(filteredPackages, pageSize, search);
+  } = usePagination(
+    filteredPackages,
+    pageSize,
+    `${search}|${priceFilter}|${durationFilter}`,
+  );
 
   const columns = [
     {
@@ -241,15 +257,46 @@ const Packages = () => {
           <Typography variant="h6" component="h2">
             All packages
           </Typography>
-          <Box sx={{ width: { xs: "100%", sm: 280 } }}>
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={1}
+            sx={{ width: { xs: "100%", sm: "auto" } }}
+          >
             <FormInput
               name="package-search"
               label="Search packages"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Name, destination..."
+              placeholder="Destination..."
+              sx={{ width: { xs: "100%", md: 280 } }}
             />
-          </Box>
+            <FormSelect
+              name="package-price-filter"
+              label="Price"
+              value={priceFilter}
+              onChange={(event) => setPriceFilter(event.target.value)}
+              options={[
+                "All",
+                "Under 50K",
+                "50K - 1L",
+                "Above 1L",
+              ]}
+              sx={{ width: { xs: "100%", md: 150 } }}
+            />
+            <FormSelect
+              name="package-duration-filter"
+              label="Duration"
+              value={durationFilter}
+              onChange={(event) => setDurationFilter(event.target.value)}
+              options={[
+                "All",
+                "1 - 3 days",
+                "4 - 7 days",
+                "8+ days",
+              ]}
+              sx={{ width: { xs: "100%", md: 150 } }}
+            />
+          </Stack>
         </Box>
 
         <DataTable

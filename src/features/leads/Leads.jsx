@@ -15,12 +15,16 @@ import {
   DataTable,
   DeleteConfirmationDialog,
   FormInput,
+  FormSelect,
   LeadDialog,
   Pagination,
 } from "../../components";
 import { addLead, deleteLead, fetchLeads, updateLead } from "./leadsSlice.js";
 import { formatINR } from "../../utils/formatCurrency.js";
-import { LEAD_STATUS_COLORS } from "../../utils/leadStatus.js";
+import {
+  LEAD_STATUS_COLORS,
+  LEAD_STATUS_OPTIONS,
+} from "../../utils/leadStatus.js";
 import usePagination from "../../hooks/usePagination.js";
 import { useNotification } from "../../providers/NotificationProvider.jsx";
 import "../dashboard/dashboard.scss";
@@ -30,6 +34,7 @@ const Leads = () => {
   const { items: leads, loading, error } = useSelector((state) => state.leads);
   const { showNotification } = useNotification();
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
   const [creatingLead, setCreatingLead] = useState(false);
   const [editingLead, setEditingLead] = useState(null);
   const [deletingLead, setDeletingLead] = useState(null);
@@ -43,21 +48,29 @@ const Leads = () => {
 
   const filteredLeads = useMemo(() => {
     const query = search.toLowerCase();
-    return leads.filter((lead) =>
-      [lead.name, lead.email, lead.phone, lead.destination, lead.status].some(
-        (value) =>
-          String(value || "")
-            .toLowerCase()
-            .includes(query),
-      ),
-    );
-  }, [leads, search]);
+    return leads.filter((lead) => {
+      const matchesSearch = [
+        lead.name,
+        lead.email,
+        lead.phone,
+        lead.destination,
+        lead.status,
+      ].some((value) =>
+        String(value || "")
+          .toLowerCase()
+          .includes(query),
+      );
+      const matchesStatus =
+        statusFilter === "All" || lead.status === statusFilter;
+      return matchesSearch && matchesStatus;
+    });
+  }, [leads, search, statusFilter]);
 
   const {
     page: currentPage,
     setPage: setCurrentPage,
     paginatedItems: paginatedLeads,
-  } = usePagination(filteredLeads, pageSize, search);
+  } = usePagination(filteredLeads, pageSize, `${search}|${statusFilter}`);
 
   const getErrorMessage = (error, fallback) =>
     error?.message || (typeof error === "string" ? error : fallback);
@@ -69,7 +82,10 @@ const Leads = () => {
       setCreatingLead(false);
       showNotification("success", "Lead created successfully");
     } catch (error) {
-      showNotification("error", getErrorMessage(error, "Failed to create lead"));
+      showNotification(
+        "error",
+        getErrorMessage(error, "Failed to create lead"),
+      );
     } finally {
       setSavingLead(false);
     }
@@ -82,7 +98,10 @@ const Leads = () => {
       setEditingLead(null);
       showNotification("success", "Lead updated successfully");
     } catch (error) {
-      showNotification("error", getErrorMessage(error, "Failed to update lead"));
+      showNotification(
+        "error",
+        getErrorMessage(error, "Failed to update lead"),
+      );
     } finally {
       setSavingLead(false);
     }
@@ -95,7 +114,10 @@ const Leads = () => {
       setDeletingLead(null);
       showNotification("success", "Lead deleted successfully");
     } catch (error) {
-      showNotification("error", getErrorMessage(error, "Failed to delete lead"));
+      showNotification(
+        "error",
+        getErrorMessage(error, "Failed to delete lead"),
+      );
     } finally {
       setDeletingLeadLoading(false);
     }
@@ -116,9 +138,7 @@ const Leads = () => {
       id: "budget",
       label: "Budget",
       render: (value) =>
-        typeof value === "number"
-          ? formatINR(value)
-          : value || "—",
+        typeof value === "number" ? formatINR(value) : value || "—",
     },
     {
       id: "travelDate",
@@ -193,15 +213,28 @@ const Leads = () => {
           <Typography variant="h6" component="h2">
             All leads
           </Typography>
-          <Box sx={{ width: { xs: "100%", sm: 280 } }}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1}
+            sx={{ width: { xs: "100%", sm: "auto" } }}
+          >
             <FormInput
               name="lead-search"
               label="Search leads"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Name, destination, status..."
+              sx={{ width: { xs: "100%", sm: 280 } }}
             />
-          </Box>
+            <FormSelect
+              name="lead-status-filter"
+              label="Status"
+              value={statusFilter}
+              onChange={(event) => setStatusFilter(event.target.value)}
+              options={["All", ...LEAD_STATUS_OPTIONS]}
+              sx={{ width: { xs: "100%", sm: 160 } }}
+            />
+          </Stack>
         </Box>
 
         <DataTable
