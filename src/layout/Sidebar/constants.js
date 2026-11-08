@@ -4,7 +4,6 @@ import {
   FiPackage,
   FiSettings,
   FiUser,
-  FiUsers,
 } from "react-icons/fi";
 
 export const SIDEBAR_NAV_ITEMS = [
@@ -16,12 +15,23 @@ export const SIDEBAR_NAV_ITEMS = [
     icon: FiBarChart2,
   },
   { id: "packages", label: "Packages", path: "/packages", icon: FiPackage },
-  { id: "team", label: "Team", path: "/team", icon: FiUsers },
 ];
 
 export const SIDEBAR_FOOTER_ITEMS = [
-  { id: "settings", label: "Settings", path: "/settings", icon: FiSettings },
-  { id: "profile", label: "Profile", path: "/profile", icon: FiUser },
+  {
+    id: "settings",
+    label: "Settings",
+    path: "/settings",
+    icon: FiSettings,
+    disabled: true,
+  },
+  {
+    id: "profile",
+    label: "Profile",
+    path: "/profile",
+    icon: FiUser,
+    disabled: true,
+  },
 ];
 
 // EXACT Figma dimensions
