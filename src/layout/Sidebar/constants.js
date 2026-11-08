@@ -7,13 +7,13 @@ import {
 } from "react-icons/fi";
 
 export const SIDEBAR_NAV_ITEMS = [
+  { id: "dashboard", label: "Dashboard", path: "/", icon: FiGrid },
   {
     id: "leads",
     label: "Leads",
     path: "/leads",
     icon: FiBarChart2,
   },
-  { id: "dashboard", label: "Dashboard", path: "/", icon: FiGrid },
   { id: "packages", label: "Packages", path: "/packages", icon: FiPackage },
 ];
 
