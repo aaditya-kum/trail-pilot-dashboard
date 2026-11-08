@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { SidebarNavItem } from "./SidebarNavItem";
 import { SIDEBAR_NAV_ITEMS, SIDEBAR_FOOTER_ITEMS } from "./constants";
 import styles from "./Sidebar.module.scss";
+import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 /**
  * Sidebar - Main navigation sidebar component
@@ -62,8 +63,13 @@ export const Sidebar = ({ onCollapsedChange }) => {
           tabIndex={isCollapsed ? 0 : undefined}
           aria-label={isCollapsed ? "Expand sidebar" : undefined}
         >
-          {/* <div className={styles.logoIcon} aria-hidden="true">D</div> */}
-          {!isCollapsed && <div className={styles.logoText}>Dashboard</div>}
+          <img
+            className={styles.logoIcon}
+            src="/favicon.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          {/* {!isCollapsed && <div className={styles.logoText}>TrailPilot</div>} */}
         </div>
 
         {/* Collapse Button - Only in expanded desktop state */}
@@ -74,7 +80,7 @@ export const Sidebar = ({ onCollapsedChange }) => {
             aria-label="Collapse sidebar"
             title="Close sidebar"
           >
-            ‹
+            <MdOutlineKeyboardDoubleArrowLeft size={20} />
           </button>
         )}
       </header>

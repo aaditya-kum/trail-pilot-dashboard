@@ -113,13 +113,14 @@
   justify-content: center;
 
   // EXPANDED state: 24x30 logo
-  width: 24px;
+  width: 30px;
   height: 30px;
+  object-fit: contain;
 
   // In collapsed state: 35x35 logo (but we'll use same for consistency)
   .collapsed & {
-    width: 35px;
-    height: 35px; // Let aspect ratio handle height
+    width: 30px;
+    height: 30px; // Let aspect ratio handle height
   }
 
   // Ensure SVG fills container properly
