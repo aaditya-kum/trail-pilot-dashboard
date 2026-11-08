@@ -116,8 +116,7 @@ const Packages = () => {
     {
       id: "price",
       label: "Price",
-      render: (value) =>
-        value ? formatINR(value) : "—",
+      render: (value) => (value ? formatINR(value) : "—"),
     },
     {
       id: "duration",
@@ -199,7 +198,10 @@ const Packages = () => {
       setCreatingPackage(false);
       showNotification("success", "Package created successfully");
     } catch (error) {
-      showNotification("error", getErrorMessage(error, "Failed to create package"));
+      showNotification(
+        "error",
+        getErrorMessage(error, "Failed to create package"),
+      );
     } finally {
       setSavingPackage(false);
     }
@@ -212,7 +214,10 @@ const Packages = () => {
       setEditingPackage(null);
       showNotification("success", "Package updated successfully");
     } catch (error) {
-      showNotification("error", getErrorMessage(error, "Failed to update package"));
+      showNotification(
+        "error",
+        getErrorMessage(error, "Failed to update package"),
+      );
     } finally {
       setSavingPackage(false);
     }
@@ -225,7 +230,10 @@ const Packages = () => {
       setDeletingPackage(null);
       showNotification("success", "Package deleted successfully");
     } catch (error) {
-      showNotification("error", getErrorMessage(error, "Failed to delete package"));
+      showNotification(
+        "error",
+        getErrorMessage(error, "Failed to delete package"),
+      );
     } finally {
       setDeletingPackageLoading(false);
     }
@@ -256,7 +264,7 @@ const Packages = () => {
             All packages
           </Typography>
           <Stack
-            direction={{ xs: "column", md: "row" }}
+            direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 2, md: 1.5 }}
             sx={{ width: { xs: "100%", sm: "auto" } }}
           >
@@ -266,33 +274,23 @@ const Packages = () => {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Destination..."
-              sx={{ width: { xs: "100%", md: 280 } }}
+              sx={{ width: { xs: "100%", sm: 200, md: 280 } }}
             />
             <FormSelect
               name="package-price-filter"
               label="Price"
               value={priceFilter}
               onChange={(event) => setPriceFilter(event.target.value)}
-              options={[
-                "All",
-                "Under 50K",
-                "50K - 1L",
-                "Above 1L",
-              ]}
-              sx={{ width: { xs: "100%", md: 150 } }}
+              options={["All", "Under 50K", "50K - 1L", "Above 1L"]}
+              sx={{ width: { xs: "100%", sm: 100, md: 140 } }}
             />
             <FormSelect
               name="package-duration-filter"
               label="Duration"
               value={durationFilter}
               onChange={(event) => setDurationFilter(event.target.value)}
-              options={[
-                "All",
-                "1 - 3 days",
-                "4 - 7 days",
-                "8+ days",
-              ]}
-              sx={{ width: { xs: "100%", md: 150 } }}
+              options={["All", "1 - 3 days", "4 - 7 days", "8+ days"]}
+              sx={{ width: { xs: "100%", sm: 100, md: 140 } }}
             />
           </Stack>
         </Box>

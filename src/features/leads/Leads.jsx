@@ -135,8 +135,7 @@ const Leads = () => {
     {
       id: "budget",
       label: "Budget",
-      render: (value) =>
-        value ? formatINR(value) : "—",
+      render: (value) => (value ? formatINR(value) : "—"),
     },
     {
       id: "travelDate",
@@ -214,7 +213,7 @@ const Leads = () => {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Name, destination, status..."
-              sx={{ width: { xs: "100%", sm: 280 } }}
+              sx={{ width: { xs: "100%", md: 280 } }}
             />
             <FormSelect
               name="lead-status-filter"
