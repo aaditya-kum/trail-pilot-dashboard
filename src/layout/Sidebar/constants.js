@@ -1,7 +1,7 @@
 import {
   FiBarChart2,
-  FiFolder,
   FiGrid,
+  FiPackage,
   FiSettings,
   FiUser,
   FiUsers,
@@ -15,7 +15,7 @@ export const SIDEBAR_NAV_ITEMS = [
     path: "/leads",
     icon: FiBarChart2,
   },
-  { id: "projects", label: "Projects", path: "/projects", icon: FiFolder },
+  { id: "packages", label: "Packages", path: "/packages", icon: FiPackage },
   { id: "team", label: "Team", path: "/team", icon: FiUsers },
 ];
 

@@ -63,8 +63,8 @@ const Dashboard = () => {
           <p className="dashboard-eyebrow">Travel operations workspace</p>
           <h1>Welcome Back Aditya!</h1>
         </div>
-        <Button variant="contained" onClick={() => navigate("/projects")}>
-          View projects
+        <Button variant="contained" onClick={() => navigate("/packages")}>
+          View packages
         </Button>
       </header>
 
