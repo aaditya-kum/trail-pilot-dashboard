@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+import { FiSettings, FiUser } from "react-icons/fi";
 import { Button, StatCard } from "../../components";
 import { fetchLeads } from "../leads/leadsSlice.js";
 import BookingTrendsChart from "./components/BookingTrendsChart.jsx";
@@ -64,13 +65,29 @@ const Dashboard = () => {
           <p className="dashboard-eyebrow">Travel operations workspace</p>
           <h1>Welcome Back Aditya!</h1>
         </div>
-        <Button
-          variant="contained"
-          onClick={() => navigate("/packages")}
-          sx={{ display: { xs: "none", sm: "inline-flex" } }}
-        >
-          View packages
-        </Button>
+        <div className="dashboard-header-actions" aria-label="Account options">
+          <button
+            className="dashboard-settings-button"
+            type="button"
+            aria-label="Settings"
+          >
+            <FiSettings aria-hidden="true" />
+          </button>
+          <button
+            className="dashboard-user-button"
+            type="button"
+            aria-label="User profile"
+          >
+            <FiUser aria-hidden="true" />
+          </button>
+          <Button
+            variant="contained"
+            onClick={() => navigate("/packages")}
+            sx={{ display: { xs: "none", sm: "inline-flex" } }}
+          >
+            View packages
+          </Button>
+        </div>
       </header>
 
       <Box

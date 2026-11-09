@@ -32,12 +32,16 @@
 }
 
 .mobileContent {
-  min-height: 100vh;
+  min-height: calc(100vh - 56px);
   padding-bottom: calc(64px + env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 
 @media (max-width: 767px) {
+  .layout {
+    flex-direction: column;
+  }
+
   .content {
     margin-left: 0;
     width: 100%;

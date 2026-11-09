@@ -1,0 +1,30 @@
+@use "@styles/design-system" as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $z-sidebar;
+  flex: 0 0 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  background: $bg-white;
+  border-bottom: 1px solid $border-light;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.brand {
+  color: $color-primary;
+  font-family: $font-family-primary;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}

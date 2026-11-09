@@ -2,6 +2,7 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "../Sidebar";
 import BottomNavigation from "../BottomNavigation/BottomNavigation";
+import { MobileHeader } from "../MobileHeader";
 import styles from "./AppLayout.module.scss";
 
 export const AppLayout = ({ children }) => {
@@ -29,6 +30,7 @@ export const AppLayout = ({ children }) => {
   return (
     <div className={styles.layout}>
       {!isMobile && <Sidebar onCollapsedChange={setSidebarCollapsed} />}
+      {isMobile && <MobileHeader />}
       <main className={contentClasses}>
         <div className={contentWrapperClasses}>{children || <Outlet />}</div>
       </main>
