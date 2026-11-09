@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
-const StatCard = ({ label, value, detail, tone = "blue" }) => (
+const StatCard = ({ label, value, detail, tone = "blue", icon: Icon }) => (
   <Card
     variant="outlined"
     sx={{
@@ -24,7 +24,7 @@ const StatCard = ({ label, value, detail, tone = "blue" }) => (
         className={`dashboard-stat-icon dashboard-stat-icon--${tone}`}
         aria-hidden="true"
       >
-        {label.charAt(0)}
+        {Icon ? <Icon /> : label.charAt(0)}
       </Box>
       <Box>
         <Typography

@@ -2,7 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
-import { FiSettings, FiUser } from "react-icons/fi";
+import {
+  FiBriefcase,
+  FiMapPin,
+  FiSettings,
+  FiUser,
+  FiUsers,
+} from "react-icons/fi";
+import { MdCurrencyRupee } from "react-icons/md";
 import { Button, StatCard } from "../../components";
 import { fetchLeads } from "../leads/leadsSlice.js";
 import BookingTrendsChart from "./components/BookingTrendsChart.jsx";
@@ -26,12 +33,14 @@ const Dashboard = () => {
       value: leads.length,
       detail: "All leads",
       tone: "blue",
+      icon: FiUsers,
     },
     {
       label: "Active Bookings",
       value: leads.filter((lead) => lead.status === "Converted").length,
       detail: "Converted leads",
       tone: "purple",
+      icon: FiBriefcase,
     },
     {
       label: "Total Revenue",
@@ -42,6 +51,7 @@ const Dashboard = () => {
       ),
       detail: "From converted leads",
       tone: "green",
+      icon: MdCurrencyRupee,
     },
     {
       label: "Upcoming Trips",
@@ -55,6 +65,7 @@ const Dashboard = () => {
       }).length,
       detail: "Trips after today",
       tone: "blue",
+      icon: FiMapPin,
     },
   ];
 
