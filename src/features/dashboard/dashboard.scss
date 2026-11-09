@@ -196,6 +196,12 @@
   .dashboard-page {
     padding: 20px 16px;
   }
+
+  .dashboard-user-button,
+  .dashboard-settings-button {
+    display: none;
+  }
+
   .dashboard-stats {
     grid-template-columns: 1fr;
   }
