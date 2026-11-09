@@ -69,7 +69,9 @@ export const Sidebar = ({ onCollapsedChange }) => {
             alt=""
             aria-hidden="true"
           />
-          {/* {!isCollapsed && <div className={styles.logoText}>TrailPilot</div>} */}
+          {!isCollapsed && (
+            <div className={styles.logoText}>TrailPilot</div>
+          )}
         </div>
 
         {/* Collapse Button - Only in expanded desktop state */}
