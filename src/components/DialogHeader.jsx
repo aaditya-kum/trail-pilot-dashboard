@@ -1,15 +1,22 @@
 import { DialogTitle, IconButton } from "@mui/material";
 import { FiX } from "react-icons/fi";
 
-const DialogHeader = ({ title, onClose, disabled = false }) => (
+const DialogHeader = ({
+  title,
+  startAdornment,
+  onClose,
+  disabled = false,
+}) => (
   <DialogTitle
     sx={{
       fontWeight: 600,
       flexShrink: 0,
       display: "flex",
       alignItems: "center",
+      gap: 1.5,
     }}
   >
+    {startAdornment}
     <span>{title}</span>
     <IconButton
       aria-label={`Close ${title}`}

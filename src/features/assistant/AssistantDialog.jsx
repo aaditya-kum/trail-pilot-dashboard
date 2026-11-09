@@ -10,6 +10,7 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { FiCopy } from "react-icons/fi";
+import { VscCopilot } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -127,6 +128,23 @@ const AssistantDialog = ({ open, onClose, lead = null }) => {
     >
       <DialogHeader
         title="Follow-up assistant"
+        startAdornment={
+          <span
+            aria-hidden="true"
+            style={{
+              width: 36,
+              height: 36,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 10,
+              color: "#fff",
+              background: "linear-gradient(135deg, #2563eb, #7c3aed)",
+            }}
+          >
+            <VscCopilot size={22} />
+          </span>
+        }
         onClose={handleClose}
         disabled={isLoading}
       />

@@ -199,7 +199,8 @@ const Leads = () => {
         </div>
         <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap>
           <Button
-            variant="secondary"
+            variant="outlined"
+            color="info"
             startIcon={<FiMessageSquare />}
             onClick={() => setAssistant({ open: true, lead: null })}
           >
